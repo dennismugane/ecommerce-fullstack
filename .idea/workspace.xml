@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="667799e3-3c6a-4ac3-b8f6-3a57833acd43" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/HELP.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/EcommerceApplication-0.0.1-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/EcommerceApplication-0.0.1-SNAPSHOT.jar.original" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application-dev.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application-prod.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/DataLoader.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/EcommerceApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/ProductImportService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/config/CorsConfig$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/config/CorsConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/config/GlobalExceptionHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/controllers/CartItemController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/controllers/DeliveryOptionController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/controllers/OrderController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/controllers/ProductController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/CartItemDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/CartRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/CartSummaryDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/CartUpdateRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/OrderCreateRequestDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/OrderDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/OrderItemDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/OrderUpdateDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/ProductCreateRequestDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/ProductDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/ProductUpdateRequestDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/models/CartItem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/models/DeliveryOption.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/models/OrderEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/models/Product.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/repositories/CartItemRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/repositories/DeliveryOptionRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/repositories/OrderRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/repositories/ProductRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/service/OrderService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/data/cart.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/data/deliveryOptions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/data/orders.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/data/products.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/appliance-instructions.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/appliance-warranty.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/clothing-size-chart.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ecommerce-backend - Shortcut.lnk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/icons/buy-again.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/icons/cart-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/icons/checkmark-white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/icons/checkmark.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/icons/checkout-lock-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/icons/search-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/logo-white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/mobile-logo-white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/mobile-logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/myLogo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/2-slot-toaster-white.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/3-piece-cooking-set.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/artistic-bowl-set-6-piece.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/athletic-cotton-socks-6-pairs.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/athletic-skateboard-shoes-gray.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/bath-towel-set-gray-rosewood.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/bathroom-mat.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/black-and-silver-espresso-maker.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/blackout-curtain-set-beige.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/blackout-curtains-set-teal.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/countertop-push-blender-black.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/crystal-zirconia-stud-earrings-pink.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/duvet-cover-set-gray-queen.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/electric-steel-hot-water-kettle-white.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/elegant-white-dinner-plate-set.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/facial-tissue-2-ply-8-boxes.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/glass-screw-lid-food-containers.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/intermediate-composite-basketball.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/kitchen-paper-towels-8-pack.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/knit-athletic-sneakers-gray.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/laundry-detergent-tabs.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/luxury-towel-set.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/men-athletic-shoes-white.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/men-brown-flat-sneakers.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/men-chino-pants-beige.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/men-cozy-fleece-hoodie-light-teal.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/men-golf-polo-t-shirt-gray.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/men-navigator-sunglasses-black.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/men-stretch-wool-sweater-black.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/non-stick-cooking-set-4-pieces.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/round-sunglasses-gold.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/sky-leaf-branch-earrings.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/straw-sunhat.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/vanity-mirror-pink.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/women-knit-ballet-flat-white.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/women-knit-beanie-pom-pom-blue.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/women-plain-cotton-oversized-sweater-gray.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/women-relaxed-lounge-pants-pink.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/women-sandal-heels-white-pink.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/women-striped-beach-dress.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/women-summer-jean-shorts.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-20.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-25.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-30.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-35.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-40.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-45.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-50.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/muigo/ecommerce/EcommerceApplicationTests.class" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="package.json" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="35nDjrY4JNBGWsjmOsnVYE6vkw4" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.EcommerceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.EcommerceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/My PC/IdeaProjects/Ecommerce/src/main/resources/static&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\My PC\IdeaProjects\Ecommerce\src\main\resources\static" />
+      <recent name="C:\Users\My PC\IdeaProjects\Ecommerce\src\main\resources\static\products" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\My PC\IdeaProjects\Ecommerce\backend" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.EcommerceApplication">
+    <configuration name="EcommerceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.muigo.ecommerce.EcommerceApplication" />
+      <module name="Ecommerce" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.muigo.ecommerce.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EcommerceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="Ecommerce" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.muigo.ecommerce.EcommerceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.EcommerceApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.27812.49" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.27812.49" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="667799e3-3c6a-4ac3-b8f6-3a57833acd43" name="Changes" comment="" />
+      <created>1763737348195</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1763737348195</updated>
+      <workItem from="1763737350349" duration="3220000" />
+      <workItem from="1763882182988" duration="2992000" />
+      <workItem from="1763907653330" duration="664000" />
+      <workItem from="1763913981698" duration="458000" />
+      <workItem from="1763995300756" duration="10087000" />
+      <workItem from="1764059230547" duration="3711000" />
+      <workItem from="1764063508589" duration="13970000" />
+      <workItem from="1764139983172" duration="583000" />
+      <workItem from="1764146654731" duration="10106000" />
+      <workItem from="1764160181691" duration="849000" />
+      <workItem from="1764161409779" duration="1151000" />
+      <workItem from="1764162631081" duration="75000" />
+      <workItem from="1764162759170" duration="969000" />
+      <workItem from="1764746188473" duration="1745000" />
+      <workItem from="1765207206216" duration="641000" />
+      <workItem from="1765259113084" duration="12892000" />
+      <workItem from="1765351960539" duration="8508000" />
+      <workItem from="1765613299068" duration="5878000" />
+      <workItem from="1765638058382" duration="294000" />
+      <workItem from="1765700342310" duration="17806000" />
+      <workItem from="1765789797256" duration="5742000" />
+      <workItem from="1765800962959" duration="2435000" />
+      <workItem from="1765958240813" duration="16172000" />
+      <workItem from="1765996934037" duration="2452000" />
+      <workItem from="1766004237254" duration="694000" />
+      <workItem from="1766030858327" duration="17591000" />
+      <workItem from="1766316782211" duration="1989000" />
+      <workItem from="1766409292650" duration="22717000" />
+      <workItem from="1766574756769" duration="2009000" />
+      <workItem from="1766605779782" duration="764000" />
+      <workItem from="1766735112943" duration="6353000" />
+      <workItem from="1766760629767" duration="7107000" />
+      <workItem from="1766783841947" duration="2555000" />
+      <workItem from="1766819584942" duration="669000" />
+      <workItem from="1766823815248" duration="6403000" />
+      <workItem from="1766945043970" duration="1350000" />
+      <workItem from="1766994544948" duration="28082000" />
+      <workItem from="1767095493050" duration="3088000" />
+      <workItem from="1767339229645" duration="3813000" />
+      <workItem from="1768897682220" duration="8215000" />
+      <workItem from="1768977264559" duration="4845000" />
+      <workItem from="1769334665064" duration="831000" />
+      <workItem from="1769593000661" duration="1545000" />
+      <workItem from="1769688339079" duration="5999000" />
+      <workItem from="1769772745506" duration="6560000" />
+      <workItem from="1770018262792" duration="5533000" />
+      <workItem from="1770124532991" duration="4536000" />
+      <workItem from="1770213980493" duration="1345000" />
+      <workItem from="1771155634138" duration="5112000" />
+      <workItem from="1771245879493" duration="3882000" />
+      <workItem from="1771346329775" duration="1257000" />
+      <workItem from="1772371973284" duration="2271000" />
+      <workItem from="1772434427736" duration="159000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
