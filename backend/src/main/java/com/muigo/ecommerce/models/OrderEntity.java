@@ -21,14 +21,23 @@ public class OrderEntity {
 
     private Instant createdAt;
     private Instant updatedAt;
+    private String status;
 
-    private String status; // e.g., PENDING, COMPLETED, CANCELLED
+    // ── Link order to the user who placed it ──
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
 
-    // One order has many cart items
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL,
+               orphanRemoval = true, fetch = FetchType.LAZY)
     private List<CartItem> cartItems;
 
     @ManyToOne
-    @JoinColumn(name = "delivery_option_id")  // FK column in `orders`
+    @JoinColumn(name = "delivery_option_id")
     private DeliveryOption deliveryOption;
+    @Column(nullable = false)
+    private Double total;
+
+    public void setItems(List<CartItem> cartItems) {
+    }
 }

@@ -6,6 +6,14 @@ export function formatMoneyCurrency(amount) {
   return shillings.toLocaleString("en-KE", {
     style: "currency",
     currency: "KES",
-    minimumFractionDigits: 2,
+    minimumFractionDigits: 0,
+  });
+}
+
+export function OrderFormatMoneyCurrency(amount) {
+  return amount.toLocaleString("en-KE", {
+    style: "currency",
+    currency: "KES",
+    minimumFractionDigits: 0,
   });
 }

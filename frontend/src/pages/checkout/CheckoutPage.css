@@ -1,239 +1,499 @@
-.checkout-page {
-  max-width: 1100px;
-  padding-left: 30px;
-  padding-right: 30px;
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap");
 
-  margin-top: 140px;
-  margin-bottom: 100px;
-
-  /* margin-left: auto;
-     margin-right auto;
-     Is a trick for centering an element horizontally
-     without needing a container. */
-  margin-left: auto;
-  margin-right: auto;
+:root {
+  --green: #1a6b3a;
+  --green-dark: #084f2d;
+  --green-mid: #228b4a;
+  --cream: #fdf8ef;
+  --sand: #f5eddb;
+  --charcoal: #1c1c1c;
+  --warm-gray: #6b6560;
+  --border: rgba(0, 0, 0, 0.07);
 }
 
-.checkout-page .page-title {
-  font-weight: 700;
-  font-size: 22px;
-  margin-bottom: 18px;
+/* ═══════════════════════════════════════════
+   CHECKOUT HEADER
+═══════════════════════════════════════════ */
+.co-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  height: 64px;
+  padding: 0 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: rgba(253, 248, 239, 0.93);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(26, 107, 58, 0.1);
+  font-family: "DM Sans", sans-serif;
 }
 
-.checkout-page .checkout-grid {
+.co-header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--green-dark);
+  font-family: "Playfair Display", serif;
+  font-weight: 900;
+  font-size: 17px;
+  flex-shrink: 0;
+}
+
+.co-header-logo-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--green-dark);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.co-header-middle {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--charcoal);
+  text-align: center;
+}
+
+.co-header-count {
+  color: var(--green);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.co-header-count:hover {
+  text-decoration: underline;
+}
+
+.co-header-right {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--warm-gray);
+  font-size: 13px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+@media (max-width: 650px) {
+  .co-header {
+    padding: 0 20px;
+  }
+  .co-header-right span {
+    display: none;
+  }
+  .co-header-logo span {
+    display: none;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   PAGE LAYOUT
+═══════════════════════════════════════════ */
+.co-page {
+  font-family: "DM Sans", sans-serif;
+  background: var(--cream);
+  min-height: 100vh;
+  padding: 100px 48px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.co-page-title {
+  font-family: "Playfair Display", serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--charcoal);
+  margin-bottom: 28px;
+}
+
+.co-grid {
   display: grid;
-  /* Here, 1fr means the first column will take
-     up the remaining space in the grid. */
-  grid-template-columns: 1fr 350px;
-  column-gap: 12px;
-
-  /* Use align-items: start; to prevent the elements
-     in the grid from stretching vertically. */
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
   align-items: start;
 }
 
-@media (max-width: 1000px) {
-  .checkout-page .main {
-    max-width: 500px;
+@media (max-width: 900px) {
+  .co-page {
+    padding: 88px 20px 60px;
   }
-
-  .checkout-page .checkout-grid {
+  .co-grid {
     grid-template-columns: 1fr;
   }
 }
 
-.checkout-page .cart-item-container,
-.checkout-page .payment-summary {
-  border: 1px solid rgb(222, 222, 222);
-  border-radius: 4px;
-  padding: 18px;
-}
-.order-summary {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
+/* ═══════════════════════════════════════════
+   CART ITEMS LIST
+═══════════════════════════════════════════ */
+.co-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.cart-item-container {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #fff;
-    overflow: hidden;
+/* ── Single card ── */
+.co-card {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: box-shadow 0.2s;
 }
 
-.cart-item-header {
-    padding: 10px 16px;
-    background-color: #f8f9fa;
-    font-size: 14px;
-    color: #28a745;
-    font-weight: 500;
+.co-card:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
 }
 
-.in-stock {
-    color: #28a745;
+/* Top coloured bar */
+.co-card-bar {
+  background: var(--sand);
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
 }
 
-.cart-item-content {
-    display: flex;
-    padding: 16px;
-    gap: 16px;
-    align-items: flex-start;
+.co-in-stock {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green);
 }
 
-.cart-item-left img.product-image {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 4px;
+.co-in-stock-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: co-blink 1.6s ease-in-out infinite;
 }
 
-.cart-item-middle {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    font-size: 14px;
+@keyframes co-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
 }
 
-.product-variation {
-    color: #666;
-    font-size: 13px;
+/* Card body */
+.co-card-body {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
 }
 
-.product-name {
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.4;
+.co-card-img-wrap {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--sand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.product-gift {
-    color: #d32f2f;
-    font-weight: 600;
-    font-size: 14px;
+.co-card-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
-.cart-item-right {
-    text-align: right;
-    font-size: 18px;
-    font-weight: bold;
+.co-card-info {
+  flex: 1;
+  min-width: 0;
 }
 
-.price-current {
-    color: #000;
+.co-variation {
+  font-size: 12px;
+  color: var(--warm-gray);
+  margin-bottom: 4px;
 }
 
-.price-original {
-    text-decoration: line-through;
-    color: #999;
-    font-size: 14px;
-    font-weight: normal;
-}
-
-.discount-badge {
-    margin-left: 8px;
-    background-color: #d32f2f;
-    color: white;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 12px;
-}
-
-.cart-item-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    border-top: 1px solid #eee;
-    background-color: #fafafa;
-}
-
-.remove-button {
-    background: none;
-    border: none;
-    color: #c7511f;
-    font-size: 14px;
-    cursor: pointer;
-    padding: 0;
-}
-
-.remove-button:hover {
-    text-decoration: underline;
-}
-
-.quantity-selector {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background: white;
-}
-
-.quantity-minus,
-.quantity-plus {
-    width: 36px;
-    height: 36px;
-    background: #f0f0f0;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.quantity-display {
-    min-width: 40px;
-    text-align: center;
-    font-weight: bold;
-}
-
-
-.checkout-page .payment-summary-title {
-  font-weight: 700;
-  font-size: 18px;
-  margin-bottom: 12px;
-}
-
-.checkout-page .payment-summary-row {
-  display: grid;
-  /* 1fr auto; means the width of the 2nd column will be
-     determined by the elements inside the column (auto).
-     The 1st column will take up the remaining space. */
-  grid-template-columns: 1fr auto;
-
+.co-product-name {
+  font-weight: 600;
   font-size: 15px;
-  margin-bottom: 9px;
+  color: var(--charcoal);
+  line-height: 1.4;
+  margin-bottom: 6px;
 }
 
-.checkout-page .payment-summary-money {
+.co-gift {
+  font-size: 13px;
+  color: #c0392b;
+  font-weight: 600;
+}
+
+/* Price block */
+.co-card-price {
   text-align: right;
+  flex-shrink: 0;
 }
 
-.checkout-page .subtotal-row .payment-summary-money {
-  border-top: 1px solid rgb(222, 222, 222);
-}
-
-.checkout-page .subtotal-row div {
-  padding-top: 9px;
-}
-
-.checkout-page .total-row {
-  color: rgb(25, 135, 84);
+.co-price-current {
+  font-family: "Playfair Display", serif;
+  font-size: 20px;
   font-weight: 700;
-  font-size: 18px;
-
-  border-top: 1px solid rgb(222, 222, 222);
-  padding-top: 18px;
+  color: var(--charcoal);
 }
 
-.checkout-page .place-order-button {
-  width: 100%;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  border-radius: 5px;
+.co-price-original {
+  font-size: 13px;
+  color: #aaa;
+  text-decoration: line-through;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: flex-end;
+}
 
+.co-discount-badge {
+  background: #e8304a;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 100px;
+  text-decoration: none;
+}
+
+/* Card footer */
+.co-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+  background: rgba(253, 248, 239, 0.5);
+}
+
+.co-remove-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: #c0392b;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: "DM Sans", sans-serif;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.co-remove-btn:hover {
+  background: rgba(192, 57, 43, 0.08);
+}
+
+/* Quantity control */
+.co-qty-control {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+}
+
+.co-qty-btn {
+  width: 36px;
+  height: 36px;
+  background: var(--sand);
+  border: none;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--charcoal);
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "DM Sans", sans-serif;
+}
+
+.co-qty-btn:hover:not(:disabled) {
+  background: #eedfc4;
+}
+.co-qty-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.co-qty-num {
+  min-width: 40px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--charcoal);
+}
+
+/* ═══════════════════════════════════════════
+   PAYMENT SUMMARY CARD
+═══════════════════════════════════════════ */
+.co-summary {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  padding: 24px;
+  position: sticky;
+  top: 84px;
+}
+
+.co-summary-title {
+  font-family: "Playfair Display", serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--charcoal);
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.co-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: var(--warm-gray);
+  margin-bottom: 10px;
+}
+
+.co-summary-total {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--charcoal);
+  padding-top: 14px;
+  margin-top: 6px;
+  border-top: 1px solid var(--border);
+}
+
+.co-summary-amount {
+  font-family: "Playfair Display", serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--green);
+}
+
+/* Place order button */
+.co-place-btn {
+  width: 100%;
   margin-top: 20px;
-  margin-bottom: 19px;
+  padding: 14px;
+  background: var(--green);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: "DM Sans", sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition:
+    background 0.2s,
+    transform 0.15s,
+    box-shadow 0.2s;
+  box-shadow: 0 6px 20px rgba(26, 107, 58, 0.25);
+}
+
+.co-place-btn:hover:not(:disabled) {
+  background: var(--green-mid);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 28px rgba(26, 107, 58, 0.3);
+}
+
+.co-place-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Spinner */
+.co-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: co-spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes co-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.co-summary-note {
+  font-size: 12px;
+  color: var(--warm-gray);
+  text-align: center;
+  margin-top: 14px;
+  line-height: 1.5;
+}
+
+.co-summary-note a {
+  color: var(--green);
+  text-decoration: none;
+}
+
+.co-summary-note a:hover {
+  text-decoration: underline;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE TWEAKS
+═══════════════════════════════════════════ */
+@media (max-width: 600px) {
+  .co-card-body {
+    flex-wrap: wrap;
+  }
+
+  .co-card-price {
+    text-align: left;
+    width: 100%;
+  }
+}
+.co-summary-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.co-summary-subtotal {
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+.co-summary-total {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--charcoal);
+  padding-top: 14px;
+  padding-bottom: 4px;
+  margin-top: 6px;
+  border-top: 2px solid var(--border);
 }

@@ -1,17 +1,16 @@
 package com.muigo.ecommerce.controllers;
 
+import com.muigo.ecommerce.config.SecurityUtil;
 import com.muigo.ecommerce.dto.CartItemDTO;
 import com.muigo.ecommerce.dto.CartRequest;
 import com.muigo.ecommerce.dto.CartSummaryDTO;
 import com.muigo.ecommerce.dto.CartUpdateRequest;
 import com.muigo.ecommerce.models.CartItem;
 import com.muigo.ecommerce.models.Product;
+import com.muigo.ecommerce.models.UserEntity;
 import com.muigo.ecommerce.repositories.CartItemRepository;
-import com.muigo.ecommerce.repositories.DeliveryOptionRepository;
-import com.muigo.ecommerce.repositories.OrderRepository;
 import com.muigo.ecommerce.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,68 +22,69 @@ import java.util.List;
 @RequestMapping("/api/cart")
 @RequiredArgsConstructor
 public class CartItemController {
+
     private final CartItemRepository cartItemRepo;
     private final ProductRepository productRepo;
-    private final DeliveryOptionRepository deliveryOptionRepo;
-    @Autowired
-    private OrderRepository orderRepository;
+    private final SecurityUtil securityUtil;
 
-
-    // GET /api/cart?expand=product
+    // GET /api/cart — returns only the current user's cart
     @GetMapping
-    public List<CartItemDTO> getCart(@RequestParam(required = false) String expand) {
-        List<CartItem> items = cartItemRepo.findByOrderedFalse();
-
+    public List<CartItemDTO> getCart() {
+        UserEntity user = securityUtil.getCurrentUser();
+        List<CartItem> items = cartItemRepo.findByUserAndOrderedFalse(user);
         return items.stream()
                 .map(item -> CartItemDTO.from(item, item.getProduct()))
                 .toList();
     }
 
+    // GET /api/cart/payments — payment summary for current user's cart
     @GetMapping("/payments")
     public CartSummaryDTO getCartSummary() {
-        List<CartItem> cartItems = cartItemRepo.findByOrderedFalse();
+        UserEntity user = securityUtil.getCurrentUser();
+        List<CartItem> cartItems = cartItemRepo.findByUserAndOrderedFalse(user);
 
         int totalItems = 0;
-        double productCostCents = 0;
+        double productCost = 0;
+        double shippingCost = 0;
 
-        // Use a flag to make sure we only pick shipping cost once for the whole order
-        boolean shippingCalculated = false;
         for (CartItem item : cartItems) {
             totalItems += item.getQuantity();
-            // Calculate product cost (keeping it in cents/long for precision as your code suggests)
-            productCostCents += (item.getProduct().getPrice() * item.getQuantity());
+            productCost += item.getProduct().getPrice() * item.getQuantity();
 
         }
 
-        double taxCents = Math.round(productCostCents * 0.1); // 10% tax logic
-        double totalCostCents = productCostCents + taxCents;
+        double tax = Math.round(productCost * 0.1 * 100.0) / 100.0;
+        double total = productCost + tax;
 
         return new CartSummaryDTO(
                 totalItems,
-                CartSummaryDTO.money(productCostCents),
-                CartSummaryDTO.money(taxCents),
-                CartSummaryDTO.money(totalCostCents)
+                CartSummaryDTO.money(productCost),
+                CartSummaryDTO.money(shippingCost),
+                CartSummaryDTO.money(tax),
+                CartSummaryDTO.money(total)
         );
     }
 
-    // POST /api/cart
+    // POST /api/cart — add item to current user's cart
     @PostMapping
     public ResponseEntity<?> addToCart(@RequestBody CartRequest req) {
+        UserEntity user = securityUtil.getCurrentUser();
 
         Product product = productRepo.findById(req.getProductId()).orElse(null);
         if (product == null)
             return ResponseEntity.badRequest().body("Product not found");
 
-        CartItem item = cartItemRepo.findByProduct_IdAndOrderedFalse(req.getProductId())
+        // Check if this user already has this product in cart
+        CartItem item = cartItemRepo
+                .findByProduct_IdAndOrderedFalseAndUser(req.getProductId(), user)
                 .orElse(null);
 
         if (item != null) {
-            // increase quantity
             item.setQuantity(item.getQuantity() + req.getQuantity());
         } else {
-            // create new cart item
             item = new CartItem();
             item.setProduct(product);
+            item.setUser(user);           // ← tie to current user
             item.setQuantity(req.getQuantity());
             item.setCreatedAt(Instant.now());
         }
@@ -95,23 +95,24 @@ public class CartItemController {
         return ResponseEntity.status(HttpStatus.CREATED).body(CartItemDTO.from(item));
     }
 
+    // PUT /api/cart/{productId} — update quantity (current user only)
     @PutMapping("/{productId}")
     public ResponseEntity<?> updateCart(
             @PathVariable Long productId,
             @RequestBody CartUpdateRequest req) {
 
+        UserEntity user = securityUtil.getCurrentUser();
+
         CartItem item = cartItemRepo
-                .findByProduct_IdAndOrderedFalse(productId)
+                .findByProduct_IdAndOrderedFalseAndUser(productId, user)
                 .orElse(null);
 
         if (item == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cart item not found");
 
-        // Update quantity
         if (req.getQuantity() != null) {
             if (req.getQuantity() < 1)
                 return ResponseEntity.badRequest().body("Quantity must be > 0");
-
             item.setQuantity(req.getQuantity());
         }
 
@@ -121,10 +122,13 @@ public class CartItemController {
         return ResponseEntity.ok(CartItemDTO.from(item));
     }
 
-    // DELETE /api/cart/{productId}
+    // DELETE /api/cart/{productId} — remove item (current user only)
     @DeleteMapping("/{productId}")
     public ResponseEntity<?> deleteCart(@PathVariable Long productId) {
-        CartItem item = cartItemRepo.findByProduct_IdAndOrderedFalse(productId)
+        UserEntity user = securityUtil.getCurrentUser();
+
+        CartItem item = cartItemRepo
+                .findByProduct_IdAndOrderedFalseAndUser(productId, user)
                 .orElse(null);
 
         if (item == null)

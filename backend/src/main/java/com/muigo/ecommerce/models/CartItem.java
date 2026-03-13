@@ -18,17 +18,21 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Many cart items can refer to one product
-    @ManyToOne(fetch = FetchType.LAZY) // lazy loading is recommended
-    @JoinColumn(name = "product_id", nullable = false) // foreign key column
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private OrderEntity order;
-    private Integer quantity;
 
+    // ── Link cart item to the user who added it ──
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
+
+    private Integer quantity;
     private Instant createdAt;
     private Instant updatedAt;
-    private boolean ordered = false; // new field
-
+    private boolean ordered = false;
 }

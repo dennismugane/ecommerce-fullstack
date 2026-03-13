@@ -1,69 +1,49 @@
 import axios from "axios";
 
-// Get base URL from environment (dev or prod)
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-// Build all endpoints from base URL
-const API = `${BASE_URL}/api/products`;
-const cartAPI = `${BASE_URL}/api/cart`;
-const deliveryAPI = `${BASE_URL}/api/delivery-options`;
-const paymentAPI = `${BASE_URL}/api/cart/payments`;
-const orderAPI = `${BASE_URL}/api/orders?expand=product`;
-
 export const getAllProducts = async () => {
-  const response = await axios.get(API);
-  return response.data; // IMPORTANT
+  const res = await axios.get(`${BASE_URL}/api/products`);
+  return res.data;
 };
 
 export const getCartItems = async () => {
-  const response = await axios.get(cartAPI);
-  console.log(response);
-  return response.data;
+  const res = await axios.get(`${BASE_URL}/api/cart`);
+  return res.data;
 };
 
-export const getDeliveryOption = async () => {
-  const response = await axios.get(deliveryAPI);
-  return response.data;
-};
-export const getPaymentSummary = async () => {
-  const response = await axios.get(paymentAPI);
-  return response.data;
-};
-export const getOrders = async () => {
-  const response = await axios.get(orderAPI);
-  return response.data;
-};
-
-export const updateOrderDelivery = async (orderId, deliveryOptionId) => {
-  try {
-    const response = await axios.put(`${BASE_URL}/api/cart/${orderId}`, {
-      deliveryOptionId: deliveryOptionId,
-    });
-    return response.data; // Should return the updated order
-  } catch (error) {
-    console.error("Error updating delivery option:", error);
-    throw error;
-  }
+export const addToCart = async (productId, quantity = 1) => {
+  const res = await axios.post(`${BASE_URL}/api/cart`, { productId, quantity });
+  return res.data;
 };
 
 export const updateCartItemQuantity = async (productId, newQuantity) => {
-  try {
-    const response = await axios.put(`${BASE_URL}/api/cart/${productId}`, {
-      productId: productId,
-      quantity: newQuantity,
-    });
-    return response.data; // Should return the updated cart
-  } catch (error) {
-    console.error("Error updating delivery option:", error);
-    throw error;
-  }
+  const res = await axios.put(`${BASE_URL}/api/cart/${productId}`, { quantity: newQuantity });
+  return res.data;
 };
 
 export const removeCartItem = async (productId) => {
-  try {
-    const response = await axios.delete(`${BASE_URL}/api/cart/${productId}`);
-    return response.data;
-  } catch (error) {
-    console.error("Error deleting cartItem : ", error);
-  }
+  const res = await axios.delete(`${BASE_URL}/api/cart/${productId}`);
+  return res.data;
+};
+
+export const getDeliveryOption = async () => {
+  const res = await axios.get(`${BASE_URL}/api/delivery-options`);
+  return res.data;
+};
+
+export const getPaymentSummary = async () => {
+  const res = await axios.get(`${BASE_URL}/api/cart/payments`);
+  return res.data;
+};
+
+export const getOrders = async () => {
+  const res = await axios.get(`${BASE_URL}/api/orders?expand=product`);
+  return res.data;
+};
+
+// Fixed: was hitting /api/cart/:id — now correctly hits /api/orders/:orderId
+export const updateOrderDelivery = async (orderId, deliveryOptionId) => {
+  const res = await axios.put(`${BASE_URL}/api/orders/${orderId}`, { deliveryOptionId });
+  return res.data;
 };

@@ -19,6 +19,9 @@ public class CartSummaryDTO {
     private BigDecimal productCost;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private BigDecimal shippingCost;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal tax;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING)

@@ -4,128 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="667799e3-3c6a-4ac3-b8f6-3a57833acd43" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HELP.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EcommerceApplication-0.0.1-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/EcommerceApplication-0.0.1-SNAPSHOT.jar.original" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application-dev.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application-prod.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/DataLoader.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/EcommerceApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/ProductImportService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/config/CorsConfig$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/config/CorsConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/config/GlobalExceptionHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/controllers/CartItemController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/controllers/DeliveryOptionController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/controllers/OrderController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/controllers/ProductController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/CartItemDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/CartRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/CartSummaryDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/CartUpdateRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/OrderCreateRequestDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/OrderDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/OrderItemDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/OrderUpdateDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/ProductCreateRequestDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/ProductDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/dto/ProductUpdateRequestDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/models/CartItem.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/models/DeliveryOption.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/models/OrderEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/models/Product.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/repositories/CartItemRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/repositories/DeliveryOptionRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/repositories/OrderRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/repositories/ProductRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/muigo/ecommerce/service/OrderService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/cart.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/deliveryOptions.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/orders.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/products.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/appliance-instructions.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/appliance-warranty.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/clothing-size-chart.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ecommerce-backend - Shortcut.lnk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/icons/buy-again.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/icons/cart-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/icons/checkmark-white.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/icons/checkmark.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/icons/checkout-lock-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/icons/search-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/logo-white.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/mobile-logo-white.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/mobile-logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/myLogo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/2-slot-toaster-white.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/3-piece-cooking-set.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/artistic-bowl-set-6-piece.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/athletic-cotton-socks-6-pairs.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/athletic-skateboard-shoes-gray.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/bath-towel-set-gray-rosewood.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/bathroom-mat.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/black-and-silver-espresso-maker.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/blackout-curtain-set-beige.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/blackout-curtains-set-teal.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/countertop-push-blender-black.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/crystal-zirconia-stud-earrings-pink.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/duvet-cover-set-gray-queen.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/electric-steel-hot-water-kettle-white.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/elegant-white-dinner-plate-set.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/facial-tissue-2-ply-8-boxes.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/glass-screw-lid-food-containers.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/intermediate-composite-basketball.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/kitchen-paper-towels-8-pack.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/knit-athletic-sneakers-gray.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/laundry-detergent-tabs.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/luxury-towel-set.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/men-athletic-shoes-white.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/men-brown-flat-sneakers.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/men-chino-pants-beige.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/men-cozy-fleece-hoodie-light-teal.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/men-golf-polo-t-shirt-gray.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/men-navigator-sunglasses-black.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/men-stretch-wool-sweater-black.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/non-stick-cooking-set-4-pieces.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/round-sunglasses-gold.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/sky-leaf-branch-earrings.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/straw-sunhat.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/vanity-mirror-pink.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/women-knit-ballet-flat-white.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/women-knit-beanie-pom-pom-blue.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/women-plain-cotton-oversized-sweater-gray.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/women-relaxed-lounge-pants-pink.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/women-sandal-heels-white-pink.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/women-striped-beach-dress.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/products/women-summer-jean-shorts.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-25.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-30.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-35.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-40.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-45.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/images/ratings/rating-50.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/muigo/ecommerce/EcommerceApplicationTests.class" beforeDir="false" />
-    </list>
+    <list default="true" id="667799e3-3c6a-4ac3-b8f6-3a57833acd43" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -290,6 +169,7 @@
       <workItem from="1771346329775" duration="1257000" />
       <workItem from="1772371973284" duration="2271000" />
       <workItem from="1772434427736" duration="159000" />
+      <workItem from="1772619579180" duration="119000" />
     </task>
     <servers />
   </component>
