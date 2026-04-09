@@ -1,5 +1,4 @@
 name: Build Spring Boot with Maven
-
 on:
   push:
     branches:
@@ -12,7 +11,6 @@ jobs:
   build:
     name: Build & Test
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -23,18 +21,22 @@ jobs:
           java-version: "17"
           distribution: "temurin"
           cache: maven
-          # NEW: Path to the pom.xml
           cache-dependency-path: backend/pom.xml
 
       - name: Build with Maven
-        # NEW: Change directory before running Maven
         working-directory: ./backend
+        # ADDED ENV BLOCK HERE
+        env:
+          SPRING_PROFILES_ACTIVE: test
+          DB_URL: jdbc:h2:mem:testdb
+          DB_USERNAME: sa
+          DB_PASSWORD: ""
+          JWT_SECRET: mydummysecretkeythatisatleast32characterslong12345
         run: mvn clean install --no-transfer-progress
 
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-jar
-          # NEW: Point to the target folder inside backend
           path: backend/target/*.jar
           retention-days: 7
