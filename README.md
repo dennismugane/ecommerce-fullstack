@@ -1,5 +1,7 @@
 # 🛒 Full-Stack E-Commerce Engine
 
+[![Build Spring Boot with Maven](https://github.com/dennismugane/ecommerce-fullstack/actions/workflows/backend-ci.yaml/badge.svg)](https://github.com/dennismugane/ecommerce-fullstack/actions/workflows/backend-ci.yaml)
+
 A robust full-stack e-commerce checkout system built with React and Spring Boot.  
 This project demonstrates advanced state management, real-time price calculations, and relational database integration.
 
@@ -24,25 +26,28 @@ This project demonstrates advanced state management, real-time price calculation
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - React.js
 - Axios
 - DayJS (Date calculations)
 
 ### Backend
+
 - Java 17+
 - Spring Boot
 - Spring Data JPA
 - Lombok
 
 ### Database
+
 - MySQL / PostgreSQL
 
 ### API
+
 - RESTful Architecture
 - DTO (Data Transfer Object) Pattern
 
 ---
-
 
 ## 📐 Architecture & Core Logic
 
@@ -88,7 +93,7 @@ This allows users to preview costs before checkout.
 
 ```bash
 git clone https://github.com/yourusername/ecommerce-engine.git
-cd ecommerce-engine 
+cd ecommerce-engine
 
 spring.datasource.url=jdbc:mysql://localhost:3306/ecommerce_db
 spring.datasource.username=root
@@ -96,11 +101,10 @@ spring.datasource.password=your_password
 spring.jpa.hibernate.ddl-auto=update
 ```
 
-
 # Build the project
+
 ./mvnw clean install
 
 # Run the backend server
+
 ./mvnw spring-boot:run
-
-
