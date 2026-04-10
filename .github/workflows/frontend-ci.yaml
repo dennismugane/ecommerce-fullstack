@@ -25,10 +25,11 @@ jobs:
       - name: Install dependencies and build
         working-directory: ./frontend
         run: |
-          npm install --no-audit --no-fund
-          npm run dev
+          npm ci # Better than 'install' for CI - it uses the lockfile exactly
+          npm run build
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: frontend-build
+          path: frontend/dist
