@@ -7,6 +7,7 @@ on:
     paths:
       - "frontend/**"
   workflow_dispatch:
+
 jobs:
   build:
     name: Build & Test
@@ -22,11 +23,17 @@ jobs:
           cache: npm
           cache-dependency-path: frontend/package-lock.json
 
-      - name: Install dependencies and build
+      - name: Install dependencies
         working-directory: ./frontend
-        run: |
-          npm ci # Better than 'install' for CI - it uses the lockfile exactly
-          npm run build
+        run: npm ci
+
+      - name: Run tests
+        working-directory: ./frontend
+        run: npx vitest run --reporter=verbose
+
+      - name: Build
+        working-directory: ./frontend
+        run: npm run build
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4

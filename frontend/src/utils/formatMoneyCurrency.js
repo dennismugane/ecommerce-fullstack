@@ -1,19 +1,20 @@
 export function formatMoneyCurrency(amount) {
-  // Convert to Ksh by multiplying by 80
-  const shillings = amount * 80;
-
-  // Format with commas and 2 decimals
-  return shillings.toLocaleString("en-KE", {
-    style: "currency",
-    currency: "KES",
+  const converted = amount * 80;
+  const rounded = Math.round(converted);
+  const formatted = new Intl.NumberFormat("en-KE", {
     minimumFractionDigits: 0,
-  });
+    maximumFractionDigits: 0,
+  }).format(Math.abs(rounded));
+
+  return rounded < 0 ? `-Ksh ${formatted}` : `Ksh ${formatted}`;
 }
 
 export function OrderFormatMoneyCurrency(amount) {
-  return amount.toLocaleString("en-KE", {
-    style: "currency",
-    currency: "KES",
+  const rounded = Math.round(amount);
+  const formatted = new Intl.NumberFormat("en-KE", {
     minimumFractionDigits: 0,
-  });
+    maximumFractionDigits: 0,
+  }).format(Math.abs(rounded));
+
+  return rounded < 0 ? `-Ksh ${formatted}` : `Ksh ${formatted}`;
 }
