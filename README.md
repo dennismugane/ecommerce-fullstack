@@ -1,6 +1,10 @@
 # 🛒 Full-Stack E-Commerce Engine
 
+[![CI — Full Stack Build & Test](https://github.com/dennismugane/ecommerce-fullstack/actions/workflows/fullstack-ci.yaml/badge.svg)](https://github.com/dennismugane/ecommerce-fullstack/actions/workflows/fullstack-ci.yaml)
+
 [![Build Spring Boot with Maven](https://github.com/dennismugane/ecommerce-fullstack/actions/workflows/backend-ci.yaml/badge.svg)](https://github.com/dennismugane/ecommerce-fullstack/actions/workflows/backend-ci.yaml)
+
+[![Build react app with npm](https://github.com/dennismugane/ecommerce-fullstack/actions/workflows/frontend-ci.yaml/badge.svg)](https://github.com/dennismugane/ecommerce-fullstack/actions/workflows/frontend-ci.yaml)
 
 A robust full-stack e-commerce checkout system built with React and Spring Boot.  
 This project demonstrates advanced state management, real-time price calculations, and relational database integration.
