@@ -99,7 +99,7 @@ jobs:
             docker compose -f docker-compose.prod.yml --env-file .env down
 
             # Start in background — don't wait for healthchecks
-            docker compose -f docker-compose.prod.yml --env-file .env up -d --no-wait
+            docker compose -f docker-compose.prod.yml --env-file .env up
 
             # Clean up old images
             docker image prune -f
