@@ -88,18 +88,18 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
+          command_timeout: 300m
           script: |
             cd /home/ec2-user
 
             # Pull latest image
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/ecommerce-backend:latest
 
-            # Update IMAGE_TAG in .env
-            sed -i 's/IMAGE_TAG=.*/IMAGE_TAG=latest/' .env
+            # Stop old containers
+            docker compose -f docker-compose.prod.yml --env-file .env down
 
-            # Stop old containers and start new ones
-            docker-compose -f docker-compose.prod.yml --env-file .env down
-            docker-compose -f docker-compose.prod.yml --env-file .env up -d
+            # Start in background — don't wait for healthchecks
+            docker compose -f docker-compose.prod.yml --env-file .env up -d --no-wait
 
             # Clean up old images
             docker image prune -f
