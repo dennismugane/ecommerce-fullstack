@@ -13,11 +13,15 @@ services:
     networks:
       - backend-network
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost"]
+      test:
+        [
+          "CMD-SHELL",
+          "mysqladmin ping -h 127.0.0.1 -u root -p$$MYSQL_ROOT_PASSWORD || exit 1",
+        ]
       interval: 20s
       timeout: 10s
-      retries: 5
-      start_period: 40s
+      retries: 10
+      start_period: 60s
 
   java-backend:
     image: ${DOCKER_HUB_USERNAME}/ecommerce-backend:${IMAGE_TAG:-latest}
