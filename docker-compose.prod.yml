@@ -1,37 +1,10 @@
 services:
-  mysql-db:
-    image: mysql:8
-    container_name: ecommerce-mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    volumes:
-      - mysql-data:/var/lib/mysql
-    networks:
-      - backend-network
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "mysqladmin ping -h 127.0.0.1 -u root -p$$MYSQL_ROOT_PASSWORD || exit 1",
-        ]
-      interval: 20s
-      timeout: 10s
-      retries: 10
-      start_period: 60s
-
   java-backend:
     image: ${DOCKER_HUB_USERNAME}/ecommerce-backend:${IMAGE_TAG:-latest}
     container_name: ecommerce-backend
     restart: always
     ports:
       - "8080:8080"
-    depends_on:
-      mysql-db:
-        condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: prod
       DB_URL: jdbc:mysql://mysql-db:3306/${MYSQL_DATABASE}
@@ -45,6 +18,3 @@ services:
 networks:
   backend-network:
     driver: bridge
-
-volumes:
-  mysql-data:
