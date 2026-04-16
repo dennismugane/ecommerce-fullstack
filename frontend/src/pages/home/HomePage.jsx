@@ -14,9 +14,9 @@ export function HomePage({ cart, loadCart }) {
   const revealRefs = useRef([]);
 
   useEffect(() => {
-    getAllProducts().then((data) => {
-      setProducts(data);
-      setFilteredProducts(data);
+    getAllProducts().then(({ products }) => {
+      setProducts(products);
+      setFilteredProducts(products);
     });
   }, []);
 

@@ -2,10 +2,15 @@ import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-export const getAllProducts = async () => {
-  const res = await axios.get(`${BASE_URL}/api/products`);
-  return res.data;
-};
+export async function getAllProducts() {
+  const response = await fetch(`${BASE_URL}/api/products`);
+  const data = await response.json();
+  return {
+    products: Array.isArray(data) ? data : (data.content ?? []),
+    totalPages: data.totalPages ?? 1,
+    totalElements: data.totalElements ?? 0,
+  };
+}
 
 export const getCartItems = async () => {
   const res = await axios.get(`${BASE_URL}/api/cart`);
@@ -18,7 +23,9 @@ export const addToCart = async (productId, quantity = 1) => {
 };
 
 export const updateCartItemQuantity = async (productId, newQuantity) => {
-  const res = await axios.put(`${BASE_URL}/api/cart/${productId}`, { quantity: newQuantity });
+  const res = await axios.put(`${BASE_URL}/api/cart/${productId}`, {
+    quantity: newQuantity,
+  });
   return res.data;
 };
 
@@ -44,6 +51,8 @@ export const getOrders = async () => {
 
 // Fixed: was hitting /api/cart/:id — now correctly hits /api/orders/:orderId
 export const updateOrderDelivery = async (orderId, deliveryOptionId) => {
-  const res = await axios.put(`${BASE_URL}/api/orders/${orderId}`, { deliveryOptionId });
+  const res = await axios.put(`${BASE_URL}/api/orders/${orderId}`, {
+    deliveryOptionId,
+  });
   return res.data;
 };
