@@ -42,8 +42,8 @@ IMAGE_TAG=${image_tag}
 RDS_ENDPOINT=${rds_endpoint}
 MYSQL_DATABASE=${db_name}
 MYSQL_USER=${db_username}
-MYSQL_PASSWORD=$DB_PASSWORD
-JWT_SECRET=$JWT_SECRET
+MYSQL_PASSWORD=$$DB_PASSWORD
+JWT_SECRET=$$JWT_SECRET
 ALLOWED_ORIGINS=${allowed_origins}
 EOF
 chmod 600 /opt/ecommerce/.env
@@ -63,8 +63,8 @@ services:
       SPRING_PROFILES_ACTIVE: prod
       DB_URL: jdbc:mysql://${RDS_ENDPOINT}:3306/${MYSQL_DATABASE}
       DB_USERNAME: ${MYSQL_USER}
-      DB_PASSWORD: ${MYSQL_PASSWORD}
-      JWT_SECRET: ${JWT_SECRET}
+      DB_PASSWORD: $$MYSQL_PASSWORD
+      JWT_SECRET: $$JWT_SECRET
       ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
     networks:
       - backend-network
