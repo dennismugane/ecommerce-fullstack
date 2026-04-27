@@ -8,12 +8,12 @@ vpc_cidr     = "10.0.0.0/16"
 
 # ── Frontend ──────────────────────────────────────────────────────────────────
 # Must be globally unique
-frontend_bucket_name = "my-ecommerce-frontend-prod"
+frontend_bucket_name = "my-ecommerce-frontend-prod-2026"
 
 # ── EC2 ───────────────────────────────────────────────────────────────────────
 ec2_instance_type   = "t3.small"
-key_pair_name       = "my-ec2-keypair"
-docker_hub_username = "myusername"
+key_pair_name       = "ecommerce-shop-key"
+docker_hub_username = "dmuigo"
 image_tag           = "latest"
 
 # Set via env var:  export TF_VAR_allowed_origins="https://dxxxxxxx.cloudfront.net"
