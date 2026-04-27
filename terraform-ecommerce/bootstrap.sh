@@ -6,7 +6,7 @@
 set -euo pipefail
 
 REGION="${AWS_DEFAULT_REGION:-us-east-1}"
-BUCKET="ecommerce-tfstate-prod"
+BUCKET="dennism-terraform-state-dev-2026"
 TABLE="ecommerce-tfstate-lock"
 
 echo "==> Creating S3 state bucket: $BUCKET"
