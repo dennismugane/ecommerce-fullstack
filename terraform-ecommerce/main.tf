@@ -10,7 +10,7 @@ terraform {
 
   # Remote state: S3 bucket + DynamoDB lock table
   backend "s3" {
-    bucket         = "ecommerce-tfstate-prod"        # must exist before first init
+    bucket         = "dennism-terraform-state-dev-2026"        # must exist before first init
     key            = "prod/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true

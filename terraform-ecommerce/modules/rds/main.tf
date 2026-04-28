@@ -79,7 +79,7 @@ resource "aws_db_instance" "main" {
   vpc_security_group_ids = [aws_security_group.rds.id]
   parameter_group_name   = aws_db_parameter_group.mysql.name
 
-  backup_retention_period  = 7
+  backup_retention_period  = 0
   backup_window            = "03:00-04:00"
   maintenance_window       = "sun:04:00-sun:05:00"
   deletion_protection      = true        # prevents accidental destroy
