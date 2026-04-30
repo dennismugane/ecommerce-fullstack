@@ -25,11 +25,11 @@ db_username       = "admin"
 db_instance_class = "db.t3.micro"
 
 # Set via env var:  export TF_VAR_db_password="supersecret"
-db_password = ""
+# db_password is now set via TF_VAR_db_password environment variable
 
 # ── Secrets (always use env vars, never commit) ───────────────────────────────
 # export TF_VAR_jwt_secret="your-jwt-secret"
-jwt_secret = ""
+# jwt_secret is now set via TF_VAR_jwt_secret environment variable
 
 # ── CloudFront / TLS ──────────────────────────────────────────────────────────
 # Optional: ACM cert ARN in us-east-1 for a custom domain.
