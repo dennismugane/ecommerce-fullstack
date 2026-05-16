@@ -1,11 +1,9 @@
-name: CI — Full Stack Build & Test
+name: CI/CD — Full Stack Build & Deploy
 
 on:
   push:
     branches:
-      - "**"
-    paths:
-      - "backend/**"
+      - "main" # Change this to your production branch (e.g., main or master)
   workflow_dispatch:
 
 jobs:
@@ -45,13 +43,13 @@ jobs:
   frontend:
     name: Frontend — React
     runs-on: ubuntu-latest
-    needs: backend # waits for backend to pass first
+    needs: backend
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
 
       - name: Set up Node.js 18
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "18"
           cache: npm
@@ -65,8 +63,11 @@ jobs:
         working-directory: ./frontend
         run: npx vitest run --reporter=verbose
 
-      - name: Build
+      # Inject your CloudFront Backend API URL so React compiles it into the bundle
+      - name: Build Production Bundle
         working-directory: ./frontend
+        env:
+          VITE_API_BASE_URL: "https://d2fxqzyyexmaqr.cloudfront.net" # Your backend_cloudfront_url
         run: npm run build
 
       - name: Upload build artifact
@@ -74,3 +75,32 @@ jobs:
         with:
           name: frontend-build
           path: frontend/dist
+
+  deploy-frontend:
+    name: Deploy Frontend — AWS S3 & CloudFront
+    runs-on: ubuntu-latest
+    needs: frontend
+    steps:
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-build
+          path: ./dist
+
+      # Configure pipeline authentication using secrets securely stored on GitHub
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      # Sync files directly into the frontend S3 bucket
+      - name: Deploy to S3 Bucket
+        run: |
+          aws s3 sync ./dist s3://my-ecommerce-frontend-prod-2026 --delete
+
+      # Instantly break the negative 403/404 cache on CloudFront edge locations
+      - name: Invalidate CloudFront Cache
+        run: |
+          aws cloudfront create-invalidation --distribution-id E4Q94M1Q6U5TZ --paths "/*"
