@@ -23,3 +23,9 @@ output "frontend_bucket_name" {
   description = "S3 bucket name – upload your build artefacts here"
   value       = module.s3.frontend_bucket_name
 }
+# Inside your ROOT outputs.tf file
+
+output "ec2_private_key" {
+  value     = module.ec2.ec2_private_key # <-- Pulls from the module's output name above
+  sensitive = true
+}

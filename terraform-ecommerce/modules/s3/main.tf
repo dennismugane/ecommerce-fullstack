@@ -1,6 +1,7 @@
 variable "environment" {}
 variable "frontend_bucket" {}
 variable "cloudfront_oac_id" {}
+variable "cloudfront_distribution_arn" {}
 
 # ── Frontend Bucket ───────────────────────────────────────────────────────────
 
@@ -52,7 +53,7 @@ resource "aws_s3_bucket_policy" "frontend" {
         Resource = "${aws_s3_bucket.frontend.arn}/*"
         Condition = {
           StringEquals = {
-            "AWS:SourceArn" = var.cloudfront_oac_id
+            "AWS:SourceArn" = var.cloudfront_distribution_arn
           }
         }
       }

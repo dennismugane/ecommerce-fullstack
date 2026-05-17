@@ -130,7 +130,16 @@ resource "aws_launch_template" "backend" {
   name_prefix   = "ecommerce-${var.environment}-"
   image_id      = data.aws_ami.amazon_linux.id
   instance_type = var.instance_type
-  key_name      = var.key_name
+  key_name      = aws_key_pair.generated_key.key_name
+
+    block_device_mappings {
+    device_name = "/dev/xvda"
+    ebs {
+      volume_size           = 20    # increase from default 8GB to 20GB
+      volume_type           = "gp3"
+      delete_on_termination = true
+    }
+  }
 
   iam_instance_profile {
     name = var.iam_instance_profile
@@ -195,7 +204,25 @@ resource "aws_autoscaling_policy" "scale_out" {
   }
 }
 
+# 1. Generate a secure private key using RSA 4096-bit encryption
+resource "tls_private_key" "backend_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+# 2. Register the public key component with your AWS Region
+resource "aws_key_pair" "generated_key" {
+  key_name   = "ecommerce-${var.environment}-generated-key"
+  public_key = tls_private_key.backend_key.public_key_openssh
+  
+  tags = { Name = "ecommerce-${var.environment}-ssh-key" }
+}
+
 # ── Outputs ───────────────────────────────────────────────────────────────────
 
 output "alb_dns_name"    { value = aws_lb.backend.dns_name }
 output "backend_sg_id"   { value = aws_security_group.backend.id }
+output "ec2_private_key" {
+  value     = tls_private_key.backend_key.private_key_pem
+  sensitive = true # Marks it sensitive so it isn't leaked into regular logs
+}

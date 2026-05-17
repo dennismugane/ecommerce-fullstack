@@ -127,4 +127,7 @@ resource "aws_cloudfront_distribution" "backend" {
 
 output "frontend_distribution_domain" { value = aws_cloudfront_distribution.frontend.domain_name }
 output "backend_distribution_domain"  { value = aws_cloudfront_distribution.backend.domain_name }
-output "oac_id"                        { value = aws_cloudfront_origin_access_control.frontend.arn }
+output "oac_id"                       { value = aws_cloudfront_origin_access_control.frontend.arn }
+
+# ADD THIS
+output "frontend_distribution_arn"    { value = aws_cloudfront_distribution.frontend.arn }

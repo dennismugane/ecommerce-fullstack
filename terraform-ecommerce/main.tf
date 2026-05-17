@@ -57,6 +57,7 @@ module "s3" {
   environment         = var.environment
   frontend_bucket     = var.frontend_bucket_name
   cloudfront_oac_id   = module.cloudfront.oac_id
+  cloudfront_distribution_arn = module.cloudfront.frontend_distribution_arn
 }
 
 module "rds" {
