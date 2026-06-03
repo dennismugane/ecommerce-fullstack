@@ -17,7 +17,7 @@ docker_hub_username = "dmuigo"
 image_tag           = "latest"
 
 # Set via env var:  export TF_VAR_allowed_origins="https://dxxxxxxx.cloudfront.net"
-allowed_origins = ""
+allowed_origins = "https://d23yij5kgrtj4d.cloudfront.net"
 
 # ── RDS ───────────────────────────────────────────────────────────────────────
 db_name           = "ecommerce"

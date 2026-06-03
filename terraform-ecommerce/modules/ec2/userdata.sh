@@ -1,47 +1,52 @@
 #!/bin/bash
-set -eo pipefail
 exec > /var/log/userdata.log 2>&1
+set -eo pipefail
 
 echo "=== START USERDATA $(date) ==="
 
-# FIXED: Using AL2023 native dnf package engine
+# ── Packages ──────────────────────────────────────────────────────────────────
 dnf update -y
-dnf install -y docker aws-cli jq
+dnf install -y docker aws-cli jq git
 echo "=== Packages installed ==="
 
+# ── Docker ────────────────────────────────────────────────────────────────────
 systemctl enable docker
 systemctl start docker
-sleep 10
+sleep 15
+systemctl is-active docker || { echo "=== FAILED: Docker not running"; exit 1; }
 echo "=== Docker started ==="
 
 usermod -aG docker ec2-user
 
+# ── Docker Compose ────────────────────────────────────────────────────────────
 curl -fsSL \
   "https://github.com/docker/compose/releases/download/v2.24.6/docker-compose-linux-x86_64" \
   -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 echo "=== Docker Compose installed ==="
 
+# ── Secrets ───────────────────────────────────────────────────────────────────
 REGION="us-east-1"
-echo "=== Region: $REGION ==="
-
 echo "=== Fetching secrets ==="
+
 DB_PASSWORD=$(aws secretsmanager get-secret-value \
   --secret-id "${db_password_secret_name}" \
   --region "$REGION" \
   --query SecretString \
-  --output text)
-echo "=== DB secret fetched: $${#DB_PASSWORD} chars ==="
+  --output text) || { echo "=== FAILED: DB secret"; exit 1; }
+echo "=== DB secret fetched OK ==="
 
 JWT_SECRET=$(aws secretsmanager get-secret-value \
   --secret-id "${jwt_secret_name}" \
   --region "$REGION" \
   --query SecretString \
-  --output text)
-echo "=== JWT secret fetched: $${#JWT_SECRET} chars ==="
+  --output text) || { echo "=== FAILED: JWT secret"; exit 1; }
+echo "=== JWT secret fetched OK ==="
 
+# ── App directory ─────────────────────────────────────────────────────────────
 mkdir -p /opt/ecommerce
 
+# ── Env file ──────────────────────────────────────────────────────────────────
 cat > /opt/ecommerce/.env <<EOF
 DOCKER_HUB_USERNAME=${docker_hub_username}
 IMAGE_TAG=${image_tag}
@@ -51,40 +56,26 @@ MYSQL_USER=${db_username}
 MYSQL_PASSWORD=$DB_PASSWORD
 JWT_SECRET=$JWT_SECRET
 ALLOWED_ORIGINS=${allowed_origins}
+DB_URL=jdbc:mysql://${rds_endpoint}/${db_name}?useSSL=false&allowPublicKeyRetrieval=true
+DB_USERNAME=${db_username}
+DB_PASSWORD=$DB_PASSWORD
+SPRING_PROFILES_ACTIVE=prod
 EOF
 chmod 600 /opt/ecommerce/.env
 unset DB_PASSWORD JWT_SECRET
 echo "=== Env file created ==="
 
-cat > /opt/ecommerce/docker-compose.yml <<COMPOSE
-services:
-  java-backend:
-    image: ${docker_hub_username}/ecommerce-backend:${image_tag}
-    container_name: ecommerce-backend
-    restart: always
-    ports:
-      - "8080:8080"
-    env_file:
-      - /opt/ecommerce/.env
-    environment:
-      SPRING_PROFILES_ACTIVE: prod
-      DB_URL: jdbc:mysql://${rds_endpoint}/${db_name}?useSSL=false&allowPublicKeyRetrieval=true
-      DB_USERNAME: ${db_username}
-      DB_PASSWORD: $${MYSQL_PASSWORD}
-      JWT_SECRET: $${JWT_SECRET}
-      ALLOWED_ORIGINS: ${allowed_origins}
-    networks:
-      - backend-network
+# ── Clone repo and use prod docker-compose ────────────────────────────────────
+echo "=== Cloning repo ==="
+git clone https://github.com/dennismugane/ecommerce-fullstack.git /tmp/ecommerce-repo \
+  || { echo "=== FAILED: git clone"; exit 1; }
 
-networks:
-  backend-network:
-    driver: bridge
-COMPOSE
-echo "=== Docker compose file created ==="
+cp /tmp/ecommerce-repo/docker-compose.prod.yml /opt/ecommerce/docker-compose.yml
+echo "=== docker-compose.prod.yml copied ==="
 
+# ── fetch-secrets.sh ──────────────────────────────────────────────────────────
 cat > /opt/ecommerce/fetch-secrets.sh <<FETCHSCRIPT
 #!/bin/bash
-set -eo pipefail
 REGION="us-east-1"
 DB_PASSWORD=\$(aws secretsmanager get-secret-value \
   --secret-id "${db_password_secret_name}" \
@@ -95,12 +86,15 @@ JWT_SECRET=\$(aws secretsmanager get-secret-value \
   --region "\$REGION" \
   --query SecretString --output text)
 sed -i "s|^MYSQL_PASSWORD=.*|MYSQL_PASSWORD=\$DB_PASSWORD|" /opt/ecommerce/.env
+sed -i "s|^DB_PASSWORD=.*|DB_PASSWORD=\$DB_PASSWORD|" /opt/ecommerce/.env
 sed -i "s|^JWT_SECRET=.*|JWT_SECRET=\$JWT_SECRET|" /opt/ecommerce/.env
 unset DB_PASSWORD JWT_SECRET
+echo "Secrets refreshed OK"
 FETCHSCRIPT
 chmod 700 /opt/ecommerce/fetch-secrets.sh
 echo "=== fetch-secrets.sh created ==="
 
+# ── Systemd services ──────────────────────────────────────────────────────────
 cat > /etc/systemd/system/ecommerce-secrets.service <<'SERVICE'
 [Unit]
 Description=Fetch ecommerce secrets from AWS Secrets Manager
@@ -133,15 +127,17 @@ systemctl daemon-reload
 systemctl enable ecommerce-secrets.service ecommerce.service
 echo "=== Systemd services registered ==="
 
+# ── Pull image and start ──────────────────────────────────────────────────────
 echo "=== Pulling Docker image ==="
 cd /opt/ecommerce
-docker pull ${docker_hub_username}/ecommerce-backend:${image_tag}
+docker pull ${docker_hub_username}/ecommerce-backend:${image_tag} \
+  || { echo "=== FAILED: docker pull"; exit 1; }
 echo "=== Image pulled ==="
 
-# FIXED: Using explicit full system binary paths
-/usr/local/bin/docker-compose --env-file /opt/ecommerce/.env up -d
+/usr/local/bin/docker-compose --env-file /opt/ecommerce/.env up -d \
+  || { echo "=== FAILED: docker-compose up"; exit 1; }
 echo "=== Container started ==="
 
-sleep 10
+sleep 15
 docker ps
 echo "=== USERDATA COMPLETE $(date) ==="

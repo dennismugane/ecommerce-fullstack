@@ -107,6 +107,7 @@ resource "aws_cloudfront_distribution" "backend" {
     compress                  = true
     cache_policy_id           = data.aws_cloudfront_cache_policy.caching_disabled.id
     origin_request_policy_id  = data.aws_cloudfront_origin_request_policy.all_viewer_except_host.id
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.cors.id
   }
 
   restrictions {
@@ -123,11 +124,40 @@ resource "aws_cloudfront_distribution" "backend" {
   tags = { Name = "ecommerce-${var.environment}-backend-cf" }
 }
 
+resource "aws_cloudfront_response_headers_policy" "cors" {
+  name = "ecommerce-${var.environment}-cors-policy"
+
+  cors_config {
+    access_control_allow_credentials = true
+
+    access_control_allow_headers {
+      items = [
+        "Authorization",
+        "Content-Type",
+        "Accept",
+        "Origin",
+        "X-Requested-With",
+        "Access-Control-Request-Method",
+        "Access-Control-Request-Headers"
+      ]
+    }
+
+    access_control_allow_methods {
+      items = ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD"]
+    }
+
+    access_control_allow_origins {
+      items = ["https://d23yij5kgrtj4d.cloudfront.net"]
+    }
+
+    access_control_max_age_sec = 3600
+    origin_override = false
+  }
+}
 # ── Outputs ───────────────────────────────────────────────────────────────────
 
 output "frontend_distribution_domain" { value = aws_cloudfront_distribution.frontend.domain_name }
 output "backend_distribution_domain"  { value = aws_cloudfront_distribution.backend.domain_name }
 output "oac_id"                       { value = aws_cloudfront_origin_access_control.frontend.arn }
-
-# ADD THIS
 output "frontend_distribution_arn"    { value = aws_cloudfront_distribution.frontend.arn }
+output "cors_policy_id" { value = aws_cloudfront_response_headers_policy.cors.id }
