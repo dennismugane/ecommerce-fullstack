@@ -29,3 +29,10 @@ output "ec2_private_key" {
   value     = module.ec2.ec2_private_key # <-- Pulls from the module's output name above
   sensitive = true
 }
+output "eks_cluster_name" {
+  value = module.eks.cluster_name
+}
+
+output "eks_cluster_endpoint" {
+  value = module.eks.cluster_endpoint
+}

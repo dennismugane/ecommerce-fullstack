@@ -1,0 +1,120 @@
+# ── Spring Boot Deployment ────────────────────────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecommerce-backend
+  namespace: ecommerce
+  labels:
+    app: ecommerce-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ecommerce-backend
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: ecommerce-backend
+    spec:
+      containers:
+        - name: ecommerce-backend
+          image: dmuigo/ecommerce-backend:latest # pulled from Docker Hub
+          imagePullPolicy: Always # always pull latest
+          ports:
+            - containerPort: 8080
+          env:
+            # Database connection
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql-service:3306/ecommerce_db?useSSL=false&allowPublicKeyRetrieval=true
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-secret
+                  key: MYSQL_USER
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-secret
+                  key: MYSQL_PASSWORD
+            # JWT
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: ecommerce-secret
+                  key: JWT_SECRET
+            # Spring config
+            - name: SPRING_PROFILES_ACTIVE
+              valueFrom:
+                configMapKeyRef:
+                  name: ecommerce-config
+                  key: SPRING_PROFILES_ACTIVE
+            - name: SERVER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: ecommerce-config
+                  key: SERVER_PORT
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 40
+            periodSeconds: 5
+            failureThreshold: 3
+
+---
+# ── Spring Boot Service — LoadBalancer ───────────────────────────────────────
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecommerce-backend-service
+  namespace: ecommerce
+spec:
+  selector:
+    app: ecommerce-backend
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30080
+
+---
+# ── HPA — Auto-scale Spring Boot on CPU load ─────────────────────────────────
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: ecommerce-backend-hpa
+  namespace: ecommerce
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: ecommerce-backend
+  minReplicas: 2
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60
