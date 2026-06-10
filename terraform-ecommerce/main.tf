@@ -97,6 +97,7 @@ module "cloudfront" {
   frontend_bucket_domain = module.s3.frontend_bucket_regional_domain
   backend_alb_dns      = module.ec2.alb_dns_name
   acm_certificate_arn  = var.acm_certificate_arn
+  allowed_origins      = var.allowed_origins
 }
 
 module "eks" {
