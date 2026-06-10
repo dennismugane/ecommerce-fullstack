@@ -82,8 +82,8 @@ resource "aws_db_instance" "main" {
   backup_retention_period  = 0
   backup_window            = "03:00-04:00"
   maintenance_window       = "sun:04:00-sun:05:00"
-  deletion_protection      = true        # prevents accidental destroy
-  skip_final_snapshot      = false
+  deletion_protection      = false        # prevents accidental destroy
+  skip_final_snapshot      = true
   final_snapshot_identifier = "ecommerce-${var.environment}-final"
 
   multi_az               = false         # set true for HA

@@ -218,6 +218,22 @@ resource "aws_key_pair" "generated_key" {
   tags = { Name = "ecommerce-${var.environment}-ssh-key" }
 }
 
+resource "aws_eks_access_entry" "admin" {
+  cluster_name  = module.eks.cluster_name
+  principal_arn = "arn:aws:iam::577133972540:user/shemeji"
+  type          = "STANDARD"
+}
+
+resource "aws_eks_access_policy_association" "admin" {
+  cluster_name  = module.eks.cluster_name
+  principal_arn = "arn:aws:iam::577133972540:user/shemeji"
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+
+  access_scope {
+    type = "cluster"
+  }
+}
+
 # ── Outputs ───────────────────────────────────────────────────────────────────
 
 output "alb_dns_name"    { value = aws_lb.backend.dns_name }
