@@ -12,6 +12,7 @@ variable "jwt_secret_name" {}           # Secrets Manager secret name, not the v
 variable "allowed_origins" {}
 variable "docker_hub_username" {}
 variable "image_tag" {}
+variable "eks_cluster_name" { default = "" }
 
 data "aws_ami" "amazon_linux" {
   most_recent = true
@@ -219,13 +220,13 @@ resource "aws_key_pair" "generated_key" {
 }
 
 resource "aws_eks_access_entry" "admin" {
-  cluster_name  = module.eks.cluster_name
+  cluster_name = var.eks_cluster_name
   principal_arn = "arn:aws:iam::577133972540:user/shemeji"
   type          = "STANDARD"
 }
 
 resource "aws_eks_access_policy_association" "admin" {
-  cluster_name  = module.eks.cluster_name
+  cluster_name = var.eks_cluster_name
   principal_arn = "arn:aws:iam::577133972540:user/shemeji"
   policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
 

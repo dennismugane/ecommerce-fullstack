@@ -30,7 +30,7 @@ spec:
           env:
             # Database connection
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:mysql://mysql-service:3306/ecommerce_db?useSSL=false&allowPublicKeyRetrieval=true
+              value: jdbc:mysql://ecommerce-prod-mysql.ckjuw0o440ji.us-east-1.rds.amazonaws.com:3306/ecommerce?useSSL=false&allowPublicKeyRetrieval=true
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
                 secretKeyRef:

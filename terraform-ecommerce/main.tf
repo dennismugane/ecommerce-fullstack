@@ -70,6 +70,7 @@ module "rds" {
   db_username         = var.db_username
   db_password         = var.db_password
   db_instance_class   = var.db_instance_class
+  eks_security_group = module.eks.cluster_security_group_id
 }
 
 module "ec2" {
@@ -88,6 +89,7 @@ module "ec2" {
   allowed_origins         = var.allowed_origins
   docker_hub_username     = var.docker_hub_username
   image_tag               = var.image_tag
+  eks_cluster_name = module.eks.cluster_name
 }
 
 module "cloudfront" {
