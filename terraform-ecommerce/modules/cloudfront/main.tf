@@ -3,6 +3,7 @@ variable "frontend_bucket_name" {}
 variable "frontend_bucket_domain" {}
 variable "backend_alb_dns" {}
 variable "acm_certificate_arn" {}
+variable "allowed_origins" {} 
 
 # ── Origin Access Control (OAC) for S3 ───────────────────────────────────────
 
