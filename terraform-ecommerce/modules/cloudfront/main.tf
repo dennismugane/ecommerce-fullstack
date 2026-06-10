@@ -147,7 +147,7 @@ resource "aws_cloudfront_response_headers_policy" "cors" {
     }
 
     access_control_allow_origins {
-      items = ["https://d23yij5kgrtj4d.cloudfront.net"]
+      items = [var.allowed_origins]
     }
 
     access_control_max_age_sec = 3600

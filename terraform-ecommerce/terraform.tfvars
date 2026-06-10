@@ -8,7 +8,7 @@ vpc_cidr     = "10.0.0.0/16"
 
 # ── Frontend ──────────────────────────────────────────────────────────────────
 # Must be globally unique
-frontend_bucket_name = "my-ecommerce-frontend-prod-2026"
+frontend_bucket_name = "muigo-frontend-prod-2026"
 
 # ── EC2 ───────────────────────────────────────────────────────────────────────
 ec2_instance_type   = "t3.small"

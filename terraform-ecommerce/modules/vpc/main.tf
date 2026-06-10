@@ -46,7 +46,11 @@ resource "aws_subnet" "private" {
   cidr_block        = local.private_cidrs[count.index]
   availability_zone = local.azs[count.index]
 
-  tags = { Name = "ecommerce-${var.environment}-private-${count.index + 1}" }
+  tags = {
+    Name                                        = "ecommerce-${var.environment}-private-${count.index + 1}"
+    "kubernetes.io/role/internal-elb"           = "1"
+    "kubernetes.io/cluster/muigo-eks-${var.environment}" = "shared"
+  }
 }
 
 # ── Route Tables ──────────────────────────────────────────────────────────────
