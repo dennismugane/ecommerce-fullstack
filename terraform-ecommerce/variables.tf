@@ -52,11 +52,11 @@ variable "allowed_origins" {
   type        = string
 }
 
-variable "jwt_secret" {
-  description = "JWT signing secret – supply via TF_VAR_jwt_secret or secrets manager"
-  type        = string
-  sensitive   = true
-}
+# variable "jwt_secret" {
+#   description = "JWT signing secret – supply via TF_VAR_jwt_secret or secrets manager"
+#   type        = string
+#   sensitive   = true
+# }
 
 # ── RDS ───────────────────────────────────────────────────────────────────────
 

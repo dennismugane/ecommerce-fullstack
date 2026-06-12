@@ -1,7 +1,7 @@
 variable "environment" {}
 variable "vpc_id" {}
 variable "private_subnet_ids" {}
-variable "ec2_security_group" {}
+variable "ec2_security_group" { default = "" }
 variable "db_name" {}
 variable "db_username" {}
 variable "db_password" { sensitive = true }
@@ -21,25 +21,28 @@ resource "aws_db_subnet_group" "main" {
 
 resource "aws_security_group" "rds" {
   name        = "ecommerce-${var.environment}-rds-sg"
-  description = "MySQL access from EC2 backend only"
+  description = "MySQL access from EKS/EC2 backend only"
   vpc_id      = var.vpc_id
 
-  ingress {
-    from_port       = 3306
-    to_port         = 3306
-    protocol        = "tcp"
-    security_groups = [var.ec2_security_group]
+  dynamic "ingress" {
+    for_each = var.ec2_security_group != "" ? [1] : []
+    content {
+      from_port       = 3306
+      to_port         = 3306
+      protocol        = "tcp"
+      security_groups = [var.ec2_security_group]
+    }
   }
 
- dynamic "ingress" {
-  for_each = var.eks_security_group != "" ? [1] : []
-  content {
-    from_port       = 3306
-    to_port         = 3306
-    protocol        = "tcp"
-    security_groups = [var.eks_security_group]
+  dynamic "ingress" {
+    for_each = var.eks_security_group != "" ? [1] : []
+    content {
+      from_port       = 3306
+      to_port         = 3306
+      protocol        = "tcp"
+      security_groups = [var.eks_security_group]
+    }
   }
-}
 
   egress {
     from_port   = 0

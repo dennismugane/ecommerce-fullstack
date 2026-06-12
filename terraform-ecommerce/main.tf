@@ -38,69 +38,69 @@ module "vpc" {
   vpc_cidr    = var.vpc_cidr
 }
 
-module "secrets" {
-  source      = "./modules/secrets"
-  environment = var.environment
-  db_password = var.db_password
-  jwt_secret  = var.jwt_secret
-}
+# module "secrets" {
+#   source      = "./modules/secrets"
+#   environment = var.environment
+#   db_password = var.db_password
+#   jwt_secret  = var.jwt_secret
+# }
 
-module "iam" {
-  source                 = "./modules/iam"
-  environment            = var.environment
-  db_password_secret_arn = module.secrets.db_password_secret_arn
-  jwt_secret_arn         = module.secrets.jwt_secret_arn
-}
+# module "iam" {
+#   source                 = "./modules/iam"
+#   environment            = var.environment
+#   db_password_secret_arn = module.secrets.db_password_secret_arn
+#   jwt_secret_arn         = module.secrets.jwt_secret_arn
+# }
 
-module "s3" {
-  source              = "./modules/s3"
-  environment         = var.environment
-  frontend_bucket     = var.frontend_bucket_name
-  cloudfront_oac_id   = module.cloudfront.oac_id
-  cloudfront_distribution_arn = module.cloudfront.frontend_distribution_arn
-}
+# module "s3" {
+#   source              = "./modules/s3"
+#   environment         = var.environment
+#   frontend_bucket     = var.frontend_bucket_name
+#   # cloudfront_oac_id   = module.cloudfront.oac_id
+#   # cloudfront_distribution_arn = module.cloudfront.frontend_distribution_arn
+# }
 
 module "rds" {
   source              = "./modules/rds"
   environment         = var.environment
   vpc_id              = module.vpc.vpc_id
   private_subnet_ids  = module.vpc.private_subnet_ids
-  ec2_security_group  = module.ec2.backend_sg_id
+  ec2_security_group  = ""
   db_name             = var.db_name
   db_username         = var.db_username
   db_password         = var.db_password
   db_instance_class   = var.db_instance_class
-  eks_security_group = module.eks.cluster_security_group_id
+  eks_security_group  = module.eks.cluster_security_group_id
 }
 
-module "ec2" {
-  source                  = "./modules/ec2"
-  environment             = var.environment
-  vpc_id                  = module.vpc.vpc_id
-  public_subnet_ids       = module.vpc.public_subnet_ids
-  instance_type           = var.ec2_instance_type
-  key_name                = var.key_pair_name
-  iam_instance_profile    = module.iam.ec2_instance_profile_name
-  rds_endpoint            = module.rds.rds_endpoint
-  db_name                 = var.db_name
-  db_username             = var.db_username
-  db_password_secret_name = module.secrets.db_password_secret_name
-  jwt_secret_name         = module.secrets.jwt_secret_name
-  allowed_origins         = var.allowed_origins
-  docker_hub_username     = var.docker_hub_username
-  image_tag               = var.image_tag
-  eks_cluster_name = module.eks.cluster_name
-}
+# module "ec2" {
+#   source                  = "./modules/ec2"
+#   environment             = var.environment
+#   vpc_id                  = module.vpc.vpc_id
+#   public_subnet_ids       = module.vpc.public_subnet_ids
+#   instance_type           = var.ec2_instance_type
+#   key_name                = var.key_pair_name
+#   iam_instance_profile    = module.iam.ec2_instance_profile_name
+#   rds_endpoint            = module.rds.rds_endpoint
+#   db_name                 = var.db_name
+#   db_username             = var.db_username
+#   db_password_secret_name = module.secrets.db_password_secret_name
+#   jwt_secret_name         = module.secrets.jwt_secret_name
+#   allowed_origins         = var.allowed_origins
+#   docker_hub_username     = var.docker_hub_username
+#   image_tag               = var.image_tag
+#   eks_cluster_name = module.eks.cluster_name
+# }
 
-module "cloudfront" {
-  source               = "./modules/cloudfront"
-  environment          = var.environment
-  frontend_bucket_name = module.s3.frontend_bucket_name
-  frontend_bucket_domain = module.s3.frontend_bucket_regional_domain
-  backend_alb_dns      = module.ec2.alb_dns_name
-  acm_certificate_arn  = var.acm_certificate_arn
-  allowed_origins      = var.allowed_origins
-}
+# module "cloudfront" {
+#   source               = "./modules/cloudfront"
+#   environment          = var.environment
+#   frontend_bucket_name = module.s3.frontend_bucket_name
+#   frontend_bucket_domain = module.s3.frontend_bucket_regional_domain
+#   backend_alb_dns      = module.ec2.alb_dns_name
+#   acm_certificate_arn  = var.acm_certificate_arn
+#   allowed_origins      = var.allowed_origins
+# } 
 
 module "eks" {
   source             = "./modules/eks"

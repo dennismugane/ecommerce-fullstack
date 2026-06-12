@@ -1,7 +1,11 @@
 variable "environment" {}
 variable "frontend_bucket" {}
-variable "cloudfront_oac_id" {}
-variable "cloudfront_distribution_arn" {}
+variable "cloudfront_oac_id" {
+  default = null
+}
+variable "cloudfront_distribution_arn" {
+  default = null
+}
 
 # ── Frontend Bucket ───────────────────────────────────────────────────────────
 
@@ -38,6 +42,7 @@ resource "aws_s3_bucket_public_access_block" "frontend" {
 
 # OAC bucket policy – grants CloudFront read access
 resource "aws_s3_bucket_policy" "frontend" {
+  count  = var.cloudfront_distribution_arn != null ? 1 : 0
   bucket = aws_s3_bucket.frontend.id
 
   policy = jsonencode({

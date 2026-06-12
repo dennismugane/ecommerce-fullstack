@@ -65,20 +65,27 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "500m"
-          livenessProbe:
+          startupProbe:
             httpGet:
               path: /actuator/health/liveness
               port: 8080
-            initialDelaySeconds: 60
+            failureThreshold: 18
             periodSeconds: 10
-            failureThreshold: 3
+            initialDelaySeconds: 30
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
               port: 8080
-            initialDelaySeconds: 40
-            periodSeconds: 5
-            failureThreshold: 3
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 6
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 120
+            periodSeconds: 20
+            failureThreshold: 6
 
 ---
 # ── Spring Boot Service — LoadBalancer ───────────────────────────────────────
