@@ -46,6 +46,19 @@ module "eks" {
   tags = { Environment = var.environment }
 }
 
+resource "aws_eks_access_entry" "shemeji" {
+  cluster_name  = module.eks.cluster_name
+  principal_arn = "arn:aws:iam::577133972540:user/shemeji"
+  type          = "STANDARD"
+}
+
+resource "aws_eks_access_policy_association" "shemeji" {
+  cluster_name  = module.eks.cluster_name
+  principal_arn = "arn:aws:iam::577133972540:user/shemeji"
+  access_scope { type = "cluster" }
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+}
+
 # ── Outputs ───────────────────────────────────────────────────────────────────
 output "cluster_name"     { value = module.eks.cluster_name }
 output "cluster_endpoint" { value = module.eks.cluster_endpoint }
