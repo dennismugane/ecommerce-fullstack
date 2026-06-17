@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: ecommerce-backend
-          image: dmuigo/ecommerce-backend:latest # pulled from Docker Hub
+          image: dmuigo/ecommerce-backend:latest
           imagePullPolicy: Always # always pull latest
           ports:
             - containerPort: 8080

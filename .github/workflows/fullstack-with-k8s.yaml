@@ -206,7 +206,7 @@ jobs:
       - name: Update image tag in deployment
         run: |
           kubectl set image deployment/ecommerce-backend \
-            ecommerce-backend=${{ secrets.DOCKERHUB_USERNAME }}/ecommerce-backend:${{ github.sha }} \
+            ecommerce-backend=${{ secrets.DOCKER_HUB_USERNAME }}/ecommerce-backend:${{ github.sha }} \
             -n ecommerce
 
       - name: Wait for rollout to complete
