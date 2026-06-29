@@ -112,3 +112,5 @@ spring.jpa.hibernate.ddl-auto=update
 # Run the backend server
 
 ./mvnw spring-boot:run
+
+# Added namespace 
