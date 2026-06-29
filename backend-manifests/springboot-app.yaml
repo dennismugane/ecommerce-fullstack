@@ -97,13 +97,11 @@ metadata:
 spec:
   selector:
     app: ecommerce-backend
-  type: LoadBalancer
+  type: ClusterIP        # ← change from LoadBalancer
   ports:
     - protocol: TCP
       port: 8080
       targetPort: 8080
-      nodePort: 30080
-
 ---
 # ── HPA — Auto-scale Spring Boot on CPU load ─────────────────────────────────
 apiVersion: autoscaling/v2
