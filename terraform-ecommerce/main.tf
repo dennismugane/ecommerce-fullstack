@@ -70,7 +70,7 @@ module "rds" {
   db_username         = var.db_username
   db_password         = var.db_password
   db_instance_class   = var.db_instance_class
-  eks_security_group  = module.eks.cluster_security_group_id
+  eks_security_group  = module.eks.node_security_group_id
 }
 
 # module "ec2" {
