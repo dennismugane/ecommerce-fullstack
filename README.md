@@ -1,4 +1,5 @@
 # Ecommerce Fullstack — AWS EKS
+[![CI/CD — Full Stack Build & Deploy](https://github.com/dennismugane/ecommerce-fullstack/actions/workflows/fullstack-with-k8s.yaml/badge.svg)](https://github.com/dennismugane/ecommerce-fullstack/actions/workflows/fullstack-with-k8s.yaml)
 
 A production-grade ecommerce application running on AWS EKS, provisioned entirely with Terraform and deployed via GitHub Actions CI/CD.
 
