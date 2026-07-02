@@ -5,7 +5,7 @@ import { formatMoneyCurrency } from "../../utils/formatMoneyCurrency";
 import "./Product.css";
 import StarRating from "./starRating";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const BASE_URL = "";
 
 export function Product({ product, loadCart }) {
   const [quantity, setQuantity] = useState(1);
@@ -35,7 +35,7 @@ export function Product({ product, loadCart }) {
       {/* Clickable image */}
       <div className="pc-img-wrap" onClick={goToDetail}>
         <img
-          src={`${BASE_URL}/${product.image}`}
+          src={`/${product.image}`}
           alt={product.name}
           className="pc-img"
         />

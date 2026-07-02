@@ -1,5 +1,4 @@
 export function OrderSummary({ cart = [], onUpdateQuantity, removeCart }) {
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   return (
     <div className="order-summary">
       {cart.map((cartItem) => {
@@ -19,7 +18,7 @@ export function OrderSummary({ cart = [], onUpdateQuantity, removeCart }) {
               <div className="cart-item-left">
                 <img
                   className="product-image"
-                  src={`${BASE_URL}/${cartItem.product.image}`}
+                  src={`/${cartItem.product.image}`}
                   alt={cartItem.product.name}
                 />
               </div>

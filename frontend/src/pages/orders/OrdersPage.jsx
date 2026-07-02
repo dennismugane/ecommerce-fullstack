@@ -10,11 +10,11 @@ import {
   formatMoneyCurrency,
 } from "../../utils/formatMoneyCurrency";
 
+const BASE_URL = "";
+
 export function OrdersPage({ cart, deliveryOptions }) {
-  const [orders, setOrders] = useState([]);
   const [selectedDelivery, setSelectedDelivery] = useState({});
   const [loading, setLoading] = useState({});
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -95,7 +95,7 @@ export function OrdersPage({ cart, deliveryOptions }) {
                         <div key={item.product.id} className="op-item-row">
                           <div className="op-item-img-wrap">
                             <img
-                              src={`${BASE_URL}/${item.product.image}`}
+                              src={`/${item.product.image}`}
                               alt={item.product.name}
                               className="op-item-img"
                             />

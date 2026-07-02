@@ -2,11 +2,10 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 
 export function PaymentSummary({ paymentSummary, loadCart }) {
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
   const createOrder = async () => {
     try {
-      await axios.post(`${BASE_URL}/api/orders`);
+      await axios.post(`/api/orders`);
 
       //reload the checkout page
       await loadCart();

@@ -5,7 +5,7 @@ import { addToCart } from "../../services/productService";
 import { formatMoneyCurrency } from "../../utils/formatMoneyCurrency";
 import "./ProductDetailPage.css";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const BASE_URL = "";
 
 function StarRating({ rating, count }) {
   return (
@@ -40,7 +40,7 @@ export function ProductDetailPage({ cart, loadCart }) {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`${BASE_URL}/api/products/${id}`)
+    fetch(`/api/products/${id}`)
       .then((res) => {
         if (!res.ok) throw new Error("Not found");
         return res.json();
@@ -136,7 +136,7 @@ export function ProductDetailPage({ cart, loadCart }) {
           <div className="pd-img-col">
             <div className="pd-img-wrap">
               <img
-                src={`${BASE_URL}/${product.image}`}
+                src={`/${product.image}`}
                 alt={product.name}
                 className="pd-img"
               />

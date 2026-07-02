@@ -55,7 +55,7 @@ function CheckoutHeader({ totalItems }) {
 
 /* ─── ORDER SUMMARY ─── */
 function OrderSummary({ cart = [], onUpdateQuantity, removeCart }) {
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const BASE_URL = "";
 
   return (
     <div className="co-items">
@@ -79,7 +79,7 @@ function OrderSummary({ cart = [], onUpdateQuantity, removeCart }) {
             <div className="co-card-body">
               <div className="co-card-img-wrap">
                 <img
-                  src={`${BASE_URL}/${cartItem.product.image}`}
+                  src={`/${cartItem.product.image}`}
                   alt={cartItem.product.name}
                   className="co-card-img"
                 />
@@ -173,14 +173,13 @@ function OrderSummary({ cart = [], onUpdateQuantity, removeCart }) {
 
 /* ─── PAYMENT SUMMARY ─── */
 function PaymentSummary({ paymentSummary, loadCart }) {
-  const BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
   const [placing, setPlacing] = useState(false);
 
   const createOrder = async () => {
     setPlacing(true);
     try {
-      await axios.post(`${BASE_URL}/api/orders`, {});
+      await axios.post(`/api/orders`, {});
       await loadCart();
       navigate("/orders");
     } catch (err) {
