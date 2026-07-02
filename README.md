@@ -2,6 +2,18 @@
 
 A production-grade ecommerce application running on AWS EKS, provisioned entirely with Terraform and deployed via GitHub Actions CI/CD.
 
+## Live Application
+
+| | |
+|---|---|
+| **Frontend** | https://tinyurl.com/muigo-commerce |
+| **API health** | https://tinyurl.com/api-health-check |
+| **API products** | https://tinyurl.com/muigo-api-products |
+
+> Note: Running on AWS EKS. The cluster is spun down when not in use to manage costs — see [Destroy section](#destroy-save-costs) for details.
+
+---
+
 ---
 
 ## Architecture
