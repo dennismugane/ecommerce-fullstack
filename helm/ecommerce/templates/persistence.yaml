@@ -1,4 +1,5 @@
-{{- if .Values.persistence.enabled }}
+{{- $existingPvc := lookup "v1" "PersistentVolumeClaim" .Values.namespace "mysql-pvc" -}}
+{{- if and .Values.persistence.enabled (not $existingPvc) }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

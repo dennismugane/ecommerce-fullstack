@@ -1,3 +1,5 @@
+{{- $existingConfigMap := lookup "v1" "ConfigMap" .Values.namespace "ecommerce-config" -}}
+{{- if not $existingConfigMap }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -9,3 +11,4 @@ data:
   MYSQL_DATABASE: {{ .Values.config.data.MYSQL_DATABASE | quote }}
   SERVER_PORT: {{ .Values.config.data.SERVER_PORT | quote }}
   SPRING_PROFILES_ACTIVE: {{ .Values.config.data.SPRING_PROFILES_ACTIVE | quote }}
+{{- end }}

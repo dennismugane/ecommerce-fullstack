@@ -208,6 +208,11 @@ jobs:
       - name: Ensure namespace and manifests exist
         run: |
           kubectl create namespace ecommerce --dry-run=client -o yaml | kubectl apply -f -
+          kubectl delete deployment ecommerce-backend deployment ecommerce-frontend \
+            service ecommerce-backend-service service ecommerce-frontend-service \
+            horizontalpodautoscaler ecommerce-backend-hpa ingress ecommerce-ingress \
+            configmap ecommerce-config secret ecommerce-secret persistentvolumeclaim mysql-pvc \
+            --ignore-not-found -n ecommerce
           helm upgrade --install ecommerce ./helm/ecommerce \
             --namespace ecommerce \
             --create-namespace \
