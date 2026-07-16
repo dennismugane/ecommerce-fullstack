@@ -208,14 +208,10 @@ jobs:
       - name: Ensure namespace and manifests exist
         run: |
           kubectl create namespace ecommerce --dry-run=client -o yaml | kubectl apply -f -
-          kubectl apply -f backend-manifests/config.yaml
-          kubectl apply -f backend-manifests/persintence-volume.yaml
-          kubectl apply -f backend-manifests/secrets.yaml
-          kubectl apply -f backend-manifests/springboot-app.yaml
-          # Apply ingress only after the admission webhook is ready
-          kubectl apply -f backend-manifests/ingress.yaml
-          # also apply frontend manifests so the frontend Deployment/Service are present
-          kubectl apply -f frontend/frontend-manifests/
+          helm upgrade --install ecommerce ./helm/ecommerce \
+            --namespace ecommerce \
+            --create-namespace \
+            --wait --timeout 10m
 
       - name: Update image tag in deployment
         run: |

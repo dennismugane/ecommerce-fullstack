@@ -1,0 +1,82 @@
+namespace: ecommerce
+
+backend:
+  image:
+    repository: dmuigo/ecommerce-backend
+    tag: latest
+    pullPolicy: Always
+  replicaCount: 2
+  service:
+    type: ClusterIP
+    port: 8080
+  resources:
+    requests:
+      cpu: 250m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+  env:
+    datasourceUrl: jdbc:mysql://ecommerce-prod-mysql.ckjuw0o440ji.us-east-1.rds.amazonaws.com:3306/ecommerce?useSSL=false&allowPublicKeyRetrieval=true
+    springProfilesActive: prod
+    serverPort: "8080"
+
+frontend:
+  image:
+    repository: dmuigo/ecommerce-frontend
+    tag: latest
+    pullPolicy: Always
+  replicaCount: 2
+  service:
+    type: ClusterIP
+    port: 80
+  resources:
+    requests:
+      cpu: 100m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+config:
+  data:
+    MYSQL_HOST: mysql-service
+    MYSQL_PORT: "3306"
+    MYSQL_DATABASE: ecommerce
+    SERVER_PORT: "8080"
+    SPRING_PROFILES_ACTIVE: prod
+
+secrets:
+  create: true
+  data:
+    MYSQL_ROOT_PASSWORD: rootpassword123
+    MYSQL_PASSWORD: Githiga#123
+    MYSQL_USER: admin
+    MYSQL_DATABASE: ecommerce
+    JWT_SECRET: A7DvGfk9gmr/kjYiPPaFuMdsLv2E7GGbptGqkq8texI=
+
+persistence:
+  enabled: true
+  storageClassName: gp2
+  size: 1Gi
+  accessModes:
+    - ReadWriteOnce
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+  rules:
+    - host: ""
+      paths:
+        - path: /api
+          pathType: Prefix
+          backendService: ecommerce-backend-service
+        - path: /actuator
+          pathType: Prefix
+          backendService: ecommerce-backend-service
+        - path: /
+          pathType: Prefix
+          backendService: ecommerce-frontend-service

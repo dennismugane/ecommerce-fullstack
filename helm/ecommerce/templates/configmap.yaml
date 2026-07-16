@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ecommerce-config
+  namespace: {{ .Values.namespace }}
+data:
+  MYSQL_HOST: {{ .Values.config.data.MYSQL_HOST | quote }}
+  MYSQL_PORT: {{ .Values.config.data.MYSQL_PORT | quote }}
+  MYSQL_DATABASE: {{ .Values.config.data.MYSQL_DATABASE | quote }}
+  SERVER_PORT: {{ .Values.config.data.SERVER_PORT | quote }}
+  SPRING_PROFILES_ACTIVE: {{ .Values.config.data.SPRING_PROFILES_ACTIVE | quote }}
