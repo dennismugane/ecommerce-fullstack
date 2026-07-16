@@ -245,7 +245,7 @@ jobs:
         run: |
           kubectl get pods -n ecommerce
 
-      - name: Print website URL
+      - name: Print the website URL
         run: |
           export INGRESS=$(kubectl get svc ingress-nginx-controller \
             -n ingress-nginx \
