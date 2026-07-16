@@ -5,6 +5,12 @@ kind: PersistentVolumeClaim
 metadata:
   name: mysql-pvc
   namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: ecommerce
+  annotations:
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 spec:
   accessModes:
 {{ toYaml .Values.persistence.accessModes | indent 4 }}

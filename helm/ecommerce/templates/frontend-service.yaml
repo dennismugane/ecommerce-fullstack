@@ -3,6 +3,12 @@ kind: Service
 metadata:
   name: ecommerce-frontend-service
   namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: ecommerce
+  annotations:
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 spec:
   selector:
     app: ecommerce-frontend

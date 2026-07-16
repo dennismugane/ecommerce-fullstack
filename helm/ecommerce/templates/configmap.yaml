@@ -5,6 +5,12 @@ kind: ConfigMap
 metadata:
   name: ecommerce-config
   namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: ecommerce
+  annotations:
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 data:
   MYSQL_HOST: {{ .Values.config.data.MYSQL_HOST | quote }}
   MYSQL_PORT: {{ .Values.config.data.MYSQL_PORT | quote }}
