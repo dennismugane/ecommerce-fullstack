@@ -208,27 +208,24 @@ jobs:
       - name: Ensure namespace and manifests exist
         run: |
           kubectl create namespace ecommerce --dry-run=client -o yaml | kubectl apply -f -
-          kubectl delete deployment ecommerce-backend deployment ecommerce-frontend \
-            service ecommerce-backend-service service ecommerce-frontend-service \
-            horizontalpodautoscaler ecommerce-backend-hpa ingress ecommerce-ingress \
-            configmap ecommerce-config secret ecommerce-secret persistentvolumeclaim mysql-pvc \
-            --ignore-not-found -n ecommerce
-          helm upgrade --install ecommerce ./helm/ecommerce \
-            --namespace ecommerce \
-            --create-namespace \
-            --wait --timeout 10m
-
-      - name: Update image tag in deployment
-        run: |
-          kubectl set image deployment/ecommerce-backend \
-            ecommerce-backend=${{ secrets.DOCKER_HUB_USERNAME }}/ecommerce-backend:${{ github.sha }} \
-            -n ecommerce
-
-      - name: Update frontend image (if present)
-        run: |
-          kubectl set image deployment/ecommerce-frontend \
-            ecommerce-frontend=${{ secrets.DOCKER_HUB_USERNAME }}/ecommerce-frontend:${{ github.sha }} \
-            -n ecommerce || echo "No frontend deployment found; skipping image update"
+          if helm status ecommerce -n ecommerce >/dev/null 2>&1; then
+            helm upgrade ecommerce ./helm/ecommerce \
+              --namespace ecommerce \
+              --set backend.image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/ecommerce-backend \
+              --set backend.image.tag=${{ github.sha }} \
+              --set frontend.image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/ecommerce-frontend \
+              --set frontend.image.tag=${{ github.sha }} \
+              --wait --timeout 10m
+          else
+            helm install ecommerce ./helm/ecommerce \
+              --namespace ecommerce \
+              --create-namespace \
+              --set backend.image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/ecommerce-backend \
+              --set backend.image.tag=${{ github.sha }} \
+              --set frontend.image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/ecommerce-frontend \
+              --set frontend.image.tag=${{ github.sha }} \
+              --wait --timeout 10m
+          fi
 
       - name: Wait for rollout to complete
         run: |
