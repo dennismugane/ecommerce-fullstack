@@ -226,8 +226,7 @@ jobs:
 
       - name: Wait for rollout to complete
         run: |
-          kubectl rollout status deployment/
-          ecommerce-backend \
+          kubectl rollout status deployment/ecommerce-backend \
             -n ecommerce \
             --timeout=300s
 
