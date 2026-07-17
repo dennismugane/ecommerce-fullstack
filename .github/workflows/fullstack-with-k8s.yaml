@@ -207,29 +207,27 @@ jobs:
 
       - name: Ensure namespace and manifests exist
         run: |
+          set -e
           kubectl create namespace ecommerce --dry-run=client -o yaml | kubectl apply -f -
-          if helm status ecommerce -n ecommerce >/dev/null 2>&1; then
-            helm upgrade ecommerce ./helm/ecommerce \
-              --namespace ecommerce \
-              --set backend.image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/ecommerce-backend \
-              --set backend.image.tag=${{ github.sha }} \
-              --set frontend.image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/ecommerce-frontend \
-              --set frontend.image.tag=${{ github.sha }} \
-              --wait --timeout 10m
-          else
-            helm install ecommerce ./helm/ecommerce \
-              --namespace ecommerce \
-              --create-namespace \
-              --set backend.image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/ecommerce-backend \
-              --set backend.image.tag=${{ github.sha }} \
-              --set frontend.image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/ecommerce-frontend \
-              --set frontend.image.tag=${{ github.sha }} \
-              --wait --timeout 10m
+          if ! helm upgrade --install ecommerce ./helm/ecommerce \
+            --namespace ecommerce \
+            --create-namespace \
+            --set backend.image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/ecommerce-backend \
+            --set backend.image.tag=${{ github.sha }} \
+            --set frontend.image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/ecommerce-frontend \
+            --set frontend.image.tag=${{ github.sha }} \
+            --wait --timeout 15m --debug; then
+              echo "Helm install/upgrade failed. Gathering diagnostics..."
+              kubectl get pods -n ecommerce || true
+              kubectl describe pods -n ecommerce || true
+              kubectl get events -n ecommerce --sort-by=.metadata.creationTimestamp || true
+              exit 1
           fi
 
       - name: Wait for rollout to complete
         run: |
-          kubectl rollout status deployment/ecommerce-backend \
+          kubectl rollout status deployment/
+          ecommerce-backend \
             -n ecommerce \
             --timeout=300s
 
