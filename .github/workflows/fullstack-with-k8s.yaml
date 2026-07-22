@@ -209,6 +209,15 @@ jobs:
         run: |
           set -e
           kubectl create namespace ecommerce --dry-run=client -o yaml | kubectl apply -f -
+
+          if helm status ecommerce -n ecommerce >/tmp/helm-status.txt 2>&1; then
+            if grep -Eq "STATUS: pending-install|STATUS: pending-upgrade|STATUS: pending-rollback" /tmp/helm-status.txt; then
+              echo "Found a stuck Helm release. Cleaning up previous operation..."
+              helm uninstall ecommerce -n ecommerce --wait --timeout 5m --ignore-not-found || true
+              kubectl delete secret -n ecommerce sh.helm.release.v1.ecommerce.v1 --ignore-not-found || true
+            fi
+          fi
+
           if ! helm upgrade --install ecommerce ./helm/ecommerce \
             --namespace ecommerce \
             --create-namespace \
@@ -217,7 +226,7 @@ jobs:
             --set backend.image.tag=${{ github.sha }} \
             --set frontend.image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/ecommerce-frontend \
             --set frontend.image.tag=${{ github.sha }} \
-            --wait --timeout 15m --debug; then
+            --wait --timeout 15m --debug --atomic; then
               echo "Helm install/upgrade failed. Gathering diagnostics..."
               echo "--- Helm release status ---"
               helm status ecommerce -n ecommerce || true
