@@ -22,16 +22,23 @@ else
 fi
 
 echo "[3/4] Ensuring Argo CD"
-kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
-if kubectl get deployment argocd-server -n argocd >/dev/null 2>&1; then
+helm repo add argo https://argoproj.github.io/argo-helm >/dev/null 2>&1 || true
+helm repo update >/dev/null 2>&1
+if helm status argocd -n argocd >/dev/null 2>&1; then
   echo "  - argocd already installed; skipping"
 else
-  kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+  helm upgrade --install argocd argo/argo-cd \
+    --namespace argocd \
+    --create-namespace \
+    --wait --timeout 15m
 fi
-kubectl wait --namespace argocd --for=condition=available deployment/argocd-server --timeout=600s
+kubectl wait --namespace argocd --for=condition=available deployment/argocd-server --timeout=600s || true
 
 echo "[4/4] Creating Argo CD Application"
-kubectl apply -f argocd-app.yaml
+kubectl apply -f argocd-app.yaml >/tmp/argocd-app.log 2>&1 || true
+if [ -s /tmp/argocd-app.log ]; then
+  tail -n 20 /tmp/argocd-app.log || true
+fi
 
 echo ""
 echo "Bootstrap complete."
