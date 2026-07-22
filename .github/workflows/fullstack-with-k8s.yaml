@@ -6,6 +6,9 @@ on:
       - "main"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   # ── Job 1: Backend Build ────────────────────────────────────────────────────
   backend:
@@ -161,106 +164,31 @@ jobs:
           path: frontend/dist
 
   
-  # ── Job 5: Deploy Backend & Frontend → EKS ────────────────────────────────────────────
-  deploy-backend:
-    name: Deploy Backend — EKS
+  # ── Job 5: Update GitOps manifests ────────────────────────────────────────
+  update-gitops-manifests:
+    name: Update GitOps manifests
     runs-on: ubuntu-latest
-    needs: docker-push           # wait for new image to be pushed
+    needs: [docker-push, frontend]
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          persist-credentials: true
 
-      - name: Update kubeconfig for EKS
+      - name: Update backend and frontend image tags in Helm values
         run: |
-          aws eks update-kubeconfig \
-            --region us-east-1 \
-            --name muigo-eks-prod
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('helm/ecommerce/values.yaml')
+          text = path.read_text()
+          text = text.replace('tag: latest', 'tag: ${{ github.sha }}', 1)
+          path.write_text(text)
+          PY
 
-      - name: Install NGINX ingress controller
+      - name: Commit and push manifest change
         run: |
-          helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-          helm repo update
-          helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
-            --namespace ingress-nginx \
-            --create-namespace \
-            --set controller.replicaCount=2 \
-            --set controller.nodeSelector."kubernetes\.io/os"=linux \
-            --wait --timeout 10m
-
-      - name: Verify ingress controller is running
-        run: |
-          kubectl wait --namespace ingress-nginx \
-            --for=condition=Available deployment/ingress-nginx-controller \
-            --timeout=600s
-          kubectl wait --namespace ingress-nginx \
-            --for=condition=ready pod -l app.kubernetes.io/component=controller \
-            --timeout=600s
-          kubectl get pods -n ingress-nginx
-          kubectl get svc -n ingress-nginx
-
-      - name: Ensure namespace and manifests exist
-        run: |
-          set -e
-          kubectl create namespace ecommerce --dry-run=client -o yaml | kubectl apply -f -
-
-          if helm status ecommerce -n ecommerce >/tmp/helm-status.txt 2>&1; then
-            if grep -Eq "STATUS: pending-install|STATUS: pending-upgrade|STATUS: pending-rollback" /tmp/helm-status.txt; then
-              echo "Found a stuck Helm release. Cleaning up previous operation..."
-              helm uninstall ecommerce -n ecommerce --wait --timeout 5m --ignore-not-found || true
-              kubectl delete secret -n ecommerce sh.helm.release.v1.ecommerce.v1 --ignore-not-found || true
-            fi
-          fi
-
-          if ! helm upgrade --install ecommerce ./helm/ecommerce \
-            --namespace ecommerce \
-            --create-namespace \
-            --set persistence.enabled=false \
-            --set backend.image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/ecommerce-backend \
-            --set backend.image.tag=${{ github.sha }} \
-            --set frontend.image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/ecommerce-frontend \
-            --set frontend.image.tag=${{ github.sha }} \
-            --wait --timeout 15m --debug --atomic; then
-              echo "Helm install/upgrade failed. Gathering diagnostics..."
-              echo "--- Helm release status ---"
-              helm status ecommerce -n ecommerce || true
-              echo "--- Helm history ---"
-              helm history ecommerce -n ecommerce || true
-              echo "--- Pods ---"
-              kubectl get pods -n ecommerce || true
-              echo "--- Pod descriptions ---"
-              kubectl describe pods -n ecommerce || true
-              echo "--- Events ---"
-              kubectl get events -n ecommerce --sort-by=.metadata.creationTimestamp || true
-              echo "--- Rendered manifest ---"
-              helm template ecommerce ./helm/ecommerce -n ecommerce || true
-              exit 1
-          fi
-
-      - name: Wait for rollout to complete
-        run: |
-          kubectl rollout status deployment/ecommerce-backend \
-            -n ecommerce \
-            --timeout=300s
-
-      - name: Verify frontend rollout
-        run: |
-          # Wait for frontend deployment (if present) to become ready
-          kubectl rollout status deployment/ecommerce-frontend -n ecommerce --timeout=180s || true
-
-      - name: Verify pods are running
-        run: |
-          kubectl get pods -n ecommerce
-
-      - name: Print the website URL
-        run: |
-          export INGRESS=$(kubectl get svc ingress-nginx-controller \
-            -n ingress-nginx \
-            -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
-          echo http://$INGRESS
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add helm/ecommerce/values.yaml
+          git diff --cached --quiet || git commit -m "ci: deploy images ${{ github.sha }}"
+          git push
