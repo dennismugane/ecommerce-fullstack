@@ -56,7 +56,8 @@ secrets:
     JWT_SECRET: A7DvGfk9gmr/kjYiPPaFuMdsLv2E7GGbptGqkq8texI=
 
 persistence:
-  enabled: true
+  # Disabled by default because this app uses external RDS and does not deploy a MySQL pod.
+  enabled: false
   storageClassName: gp2
   size: 1Gi
   accessModes:

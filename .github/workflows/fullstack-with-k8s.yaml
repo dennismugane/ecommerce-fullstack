@@ -212,15 +212,25 @@ jobs:
           if ! helm upgrade --install ecommerce ./helm/ecommerce \
             --namespace ecommerce \
             --create-namespace \
+            --set persistence.enabled=false \
             --set backend.image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/ecommerce-backend \
             --set backend.image.tag=${{ github.sha }} \
             --set frontend.image.repository=${{ secrets.DOCKER_HUB_USERNAME }}/ecommerce-frontend \
             --set frontend.image.tag=${{ github.sha }} \
             --wait --timeout 15m --debug; then
               echo "Helm install/upgrade failed. Gathering diagnostics..."
+              echo "--- Helm release status ---"
+              helm status ecommerce -n ecommerce || true
+              echo "--- Helm history ---"
+              helm history ecommerce -n ecommerce || true
+              echo "--- Pods ---"
               kubectl get pods -n ecommerce || true
+              echo "--- Pod descriptions ---"
               kubectl describe pods -n ecommerce || true
+              echo "--- Events ---"
               kubectl get events -n ecommerce --sort-by=.metadata.creationTimestamp || true
+              echo "--- Rendered manifest ---"
+              helm template ecommerce ./helm/ecommerce -n ecommerce || true
               exit 1
           fi
 
