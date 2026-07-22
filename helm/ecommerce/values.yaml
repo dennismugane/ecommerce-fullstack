@@ -3,7 +3,7 @@ namespace: ecommerce
 backend:
   image:
     repository: dmuigo/ecommerce-backend
-    tag: latest
+    tag: a8947400426d7a5aec43eb2267c4239f0524804f
     pullPolicy: Always
   replicaCount: 2
   service:
